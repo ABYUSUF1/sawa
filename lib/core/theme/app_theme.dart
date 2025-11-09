@@ -5,7 +5,6 @@ class AppTheme {
   static ThemeData lightTheme(BuildContext context) {
     final colorScheme = ColorScheme.fromSeed(
       seedColor: AppColors.seedColor,
-      // primary: AppColors.primary,
       brightness: Brightness.light,
       // onSurface: Colors.black,
       onSurfaceVariant: Colors.grey,
@@ -48,7 +47,7 @@ class AppTheme {
     final colorScheme = ColorScheme.fromSeed(
       seedColor: AppColors.seedColor,
       brightness: Brightness.dark,
-      // primary: AppColors.primary,
+      primary: AppColors.seedColor,
       // onSurface: Colors.white,
       onSurfaceVariant: const Color(0xFF86899D),
       // onError: Color(0xffF27A80),
