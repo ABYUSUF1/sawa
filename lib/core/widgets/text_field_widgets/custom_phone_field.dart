@@ -1,7 +1,9 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
+import 'package:sawa/generated/locale_keys.g.dart';
 
 import '../../utils/controllers/phone_field_controller.dart';
 
@@ -61,8 +63,7 @@ class _CustomPhoneFieldState extends State<CustomPhoneField> {
       widget.controller.expectedLen[widget.controller.countryCode] ?? 8;
   int get _maxLength => _expectedLength + 1; // Allows for optional leading zero
 
-  String get _helperText =>
-      'أدخل $_expectedLength رقم بعد كود البلد (يمكنك بدء الرقم بصفر محليًا)';
+  String get _helperText => context.tr(LocaleKeys.auth_phone_field_hint);
 
   /// Handles the text change event from the TextFormField.
   /// It avoids calling `setState` for performance, as UI updates for the
@@ -89,7 +90,9 @@ class _CustomPhoneFieldState extends State<CustomPhoneField> {
       validator: (value) => widget.controller.validate(),
       onChanged: _handleChange,
       decoration: InputDecoration(
-        labelText: widget.isSearchMode ? "Search by phone" : "Phone Number",
+        labelText: widget.isSearchMode
+            ? context.tr(LocaleKeys.common_search_by_phone)
+            : context.tr(LocaleKeys.auth_phone),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
         prefixIcon: _buildCountryCodePicker(),
         // PERFORMANCE: ValueListenableBuilder listens to the text controller

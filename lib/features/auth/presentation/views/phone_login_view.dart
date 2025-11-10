@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:sawa/core/utils/controllers/phone_field_controller.dart';
+import 'package:sawa/generated/locale_keys.g.dart';
 
 import '../../../../core/providers/theme_providers.dart';
 import '../../../../core/utils/constant/layout_constant.dart';
@@ -17,7 +19,7 @@ class PhoneLoginView extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Sawa",
+          context.tr(LocaleKeys.app_name),
           style: theme.textTheme.titleLarge!.copyWith(
             fontWeight: FontWeight.bold,
           ),
@@ -33,7 +35,13 @@ class PhoneLoginView extends ConsumerWidget {
           const SizedBox(width: 5),
           IconButton(
             icon: const Icon(IconsaxPlusLinear.translate),
-            onPressed: () async {},
+            onPressed: () async {
+              await context.setLocale(
+                context.locale == const Locale('en')
+                    ? const Locale('ar')
+                    : const Locale('en'),
+              );
+            },
           ),
           const SizedBox(width: 8),
         ],
@@ -48,12 +56,12 @@ class PhoneLoginView extends ConsumerWidget {
               children: [
                 const SizedBox(height: 50),
                 Text(
-                  "Sign in with phone number",
+                  context.tr(LocaleKeys.auth_sign_in_with_phone_number),
                   style: theme.textTheme.titleLarge,
                 ),
                 const SizedBox(height: 5),
                 Text(
-                  "Sawa need to verify your phone number before getting started",
+                  context.tr(LocaleKeys.auth_sign_in_with_phone_number_desc),
                   style: theme.textTheme.bodyMedium!.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
@@ -61,7 +69,10 @@ class PhoneLoginView extends ConsumerWidget {
                 const SizedBox(height: 30),
                 CustomPhoneField(controller: PhoneFieldController()),
                 const SizedBox(height: 30),
-                CustomElevatedButton(label: "Continue", onTap: () {}),
+                CustomElevatedButton(
+                  label: context.tr(LocaleKeys.common_continue),
+                  onTap: () {},
+                ),
               ],
             ),
           ),

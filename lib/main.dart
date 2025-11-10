@@ -1,3 +1,5 @@
+import 'package:device_preview/device_preview.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -15,7 +17,25 @@ void main() async {
     anonKey: "sb_publishable_SWKfvr60UOR9S6-zun9yXQ_sHwQXT4V",
   );
 
-  runApp(const ProviderScope(child: MyApp()));
+  await EasyLocalization.ensureInitialized();
+
+  runApp(
+    ProviderScope(
+      child: EasyLocalization(
+        supportedLocales: const [Locale('en'), Locale('ar')],
+        path: 'assets/translations',
+        startLocale: const Locale('en'),
+        fallbackLocale: const Locale('en'),
+        useOnlyLangCode: true,
+        ignorePluralRules: false,
+        child: DevicePreview(
+          builder: (context) {
+            return MyApp();
+          },
+        ),
+      ),
+    ),
+  );
 }
 
 class MyApp extends ConsumerWidget {
@@ -32,6 +52,9 @@ class MyApp extends ConsumerWidget {
       darkTheme: AppTheme.darkTheme(context),
       themeMode: themeMode,
       routerConfig: appRouter,
+      locale: context.locale,
+      supportedLocales: context.supportedLocales,
+      localizationsDelegates: context.localizationDelegates,
     );
   }
 }

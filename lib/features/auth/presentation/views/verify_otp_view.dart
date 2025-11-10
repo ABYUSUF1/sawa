@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sawa/core/widgets/buttons/custom_elevated_button.dart';
 import 'package:sawa/core/widgets/buttons/custom_outlined_button.dart';
+import 'package:sawa/generated/locale_keys.g.dart';
 
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/utils/constant/layout_constant.dart';
@@ -23,21 +25,31 @@ class VerifyOtpView extends StatelessWidget {
             constraints: const BoxConstraints(maxWidth: kMobileWidth),
             child: Column(
               children: [
-                Text("Verify your OTP", style: theme.textTheme.titleLarge),
+                Text(
+                  context.tr(LocaleKeys.auth_verify_your_otp),
+                  style: theme.textTheme.titleLarge,
+                ),
                 const SizedBox(height: 5),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "We have sent an OTP to ",
+                      context.tr(LocaleKeys.auth_verify_otp_desc_1),
                       style: theme.textTheme.bodyMedium!.copyWith(
                         color: theme.colorScheme.onSurfaceVariant,
                       ),
                     ),
                     Text(
-                      "+91 1234567890",
+                      "+91 1234567890 ",
                       style: theme.textTheme.bodyMedium!.copyWith(
                         color: theme.colorScheme.primary,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    Text(
+                      context.tr(LocaleKeys.auth_verify_otp_desc_2),
+                      style: theme.textTheme.bodyMedium!.copyWith(
+                        color: theme.colorScheme.onSurfaceVariant,
                       ),
                     ),
                   ],
@@ -49,9 +61,15 @@ class VerifyOtpView extends StatelessWidget {
                 const SizedBox(height: 50),
                 const OtpField(),
                 const SizedBox(height: 50),
-                CustomElevatedButton(label: "Verify Code", onTap: () {}),
+                CustomElevatedButton(
+                  label: context.tr(LocaleKeys.auth_verify_otp_check_button),
+                  onTap: () {},
+                ),
                 const SizedBox(height: 16),
-                CustomOutlinedButton(label: "Resend", onTap: () {}),
+                CustomOutlinedButton(
+                  label: context.tr(LocaleKeys.auth_verify_otp_resend_code),
+                  onTap: () {},
+                ),
               ],
             ),
           ),
