@@ -1,6 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../domain/entity/user_entity.dart';
+
 part 'user_model.freezed.dart';
 part 'user_model.g.dart';
 
@@ -37,5 +39,20 @@ abstract class UserModel with _$UserModel {
     lastSeenAt: user.userMetadata?['last_seen_at'] != null
         ? DateTime.tryParse(user.userMetadata!['last_seen_at'])
         : null,
+  );
+}
+
+extension UserModelX on UserModel {
+  UserEntity toEntity() => UserEntity(
+    id: id,
+    phoneNumber: phoneNumber,
+    firstName: firstName,
+    lastName: lastName,
+    bio: bio ?? '',
+    profileImage: profileImage,
+    createdAt: createdAt,
+    updatedAt: updatedAt ?? createdAt,
+    lastSeenAt: lastSeenAt,
+    isOnline: isOnline,
   );
 }

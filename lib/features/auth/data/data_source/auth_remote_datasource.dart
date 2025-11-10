@@ -29,7 +29,7 @@ class AuthRemoteDatasource {
   }
 
   // Update profile
-  Future<void> updateProfile(UserModel user) async {
+  Future<UserModel> updateProfile(UserModel user) async {
     await _supabase
         .from('users')
         .update({
@@ -40,6 +40,13 @@ class AuthRemoteDatasource {
           'updated_at': DateTime.now().toIso8601String(),
         })
         .eq('id', user.id);
+
+    final response = await _supabase
+        .from('users')
+        .select()
+        .eq('id', user.id)
+        .single();
+    return UserModel.fromJson(response);
   }
 
   Future<void> setUserOnlineStatus(String userId, bool isOnline) async {

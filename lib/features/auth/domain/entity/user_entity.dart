@@ -1,3 +1,5 @@
+import '../../data/model/user_model.dart';
+
 class UserEntity {
   final String id;
   final String phoneNumber;
@@ -48,4 +50,18 @@ class UserEntity {
       isOnline: isOnline ?? this.isOnline,
     );
   }
+
+  // to model
+  UserModel toModel() => UserModel(
+    id: id,
+    phoneNumber: phoneNumber,
+    firstName: firstName,
+    lastName: lastName,
+    bio: bio,
+    profileImage: profileImage,
+    createdAt: createdAt,
+    updatedAt: updatedAt,
+    lastSeenAt: lastSeenAt,
+    isOnline: isOnline,
+  );
 }
