@@ -51,6 +51,7 @@ class CompleteYourProfileView extends StatelessWidget {
                 CustomTextField(
                   controller: TextEditingController(),
                   maxLines: 5,
+
                   title: "Bio",
                 ),
                 const SizedBox(height: 30),
