@@ -38,9 +38,10 @@ class AppTheme {
         displayColor: colorScheme.onSurface,
       ),
       // fontFamily: appFont(context),
-      dividerTheme: DividerThemeData(
-        color: colorScheme.outlineVariant,
-        thickness: 1,
+      dividerTheme: DividerThemeData(color: colorScheme.outline, thickness: 1),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: colorScheme.primary,
+        foregroundColor: colorScheme.onPrimary,
       ),
     );
   }
@@ -81,9 +82,10 @@ class AppTheme {
         displayColor: colorScheme.onSurface,
       ),
       // fontFamily: appFont(context),
-      dividerTheme: DividerThemeData(
-        color: colorScheme.outlineVariant,
-        thickness: 1,
+      dividerTheme: DividerThemeData(color: colorScheme.outline, thickness: 1),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: colorScheme.primary,
+        foregroundColor: colorScheme.onPrimary,
       ),
     );
   }

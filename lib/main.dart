@@ -29,6 +29,7 @@ void main() async {
         useOnlyLangCode: true,
         ignorePluralRules: false,
         child: DevicePreview(
+          // enabled: false,
           builder: (context) {
             return const MyApp();
           },

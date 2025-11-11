@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
-import 'responsive_layout.dart';
+import '../layout/responsive_layout.dart';
 
 class CustomIllustrationWidget extends StatelessWidget {
   final String svgImage;

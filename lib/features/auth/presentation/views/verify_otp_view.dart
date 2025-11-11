@@ -44,7 +44,7 @@ class VerifyOtpView extends ConsumerWidget {
         if (next.user!.isProfileIncomplete) {
           context.goNamed(AppRouteNames.completeProfile);
         } else {
-          context.goNamed(AppRouteNames.home);
+          context.goNamed(AppRouteNames.chats);
         }
       }
     });

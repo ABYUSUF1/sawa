@@ -23,7 +23,7 @@ class SplashView extends ConsumerWidget {
           if (user.firstName.isEmpty || user.lastName.isEmpty) {
             context.goNamed(AppRouteNames.completeProfile);
           } else {
-            context.goNamed(AppRouteNames.home);
+            context.goNamed(AppRouteNames.chats);
           }
         },
         unauthenticated: () {

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sawa/features/chats/presentation/views/chats_view.dart';
 import 'package:sawa/features/splash/splash_view.dart';
+import 'package:sawa/features/statuses/presentation/views/statuses_view.dart';
 
 import '../../features/auth/presentation/views/complete_your_profile_view.dart';
 import '../../features/auth/presentation/views/phone_login_view.dart';
 import '../../features/auth/presentation/views/verify_otp_view.dart';
-import '../../features/home_view.dart';
+import '../../features/calls/presentation/views/calls_view.dart';
+import '../layout/main_layout/main_layout.dart';
 import 'app_route_name.dart';
 import 'app_route_path.dart';
 
@@ -13,7 +16,7 @@ final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 
 final GoRouter appRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: AppRoutePaths.splash,
+  initialLocation: AppRoutePaths.chats,
   routes: [
     GoRoute(
       name: AppRouteNames.splash,
@@ -38,10 +41,51 @@ final GoRouter appRouter = GoRouter(
       path: AppRoutePaths.completeProfile,
       builder: (context, state) => const CompleteYourProfileView(),
     ),
-    GoRoute(
-      name: AppRouteNames.home,
-      path: AppRoutePaths.home,
-      builder: (context, state) => const HomeView(),
+
+    // Main App Routes with Bottom Nav
+    StatefulShellRoute.indexedStack(
+      builder: (context, state, navigationShell) =>
+          MainLayout(navigationShell: navigationShell),
+
+      branches: [
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              name: AppRouteNames.chats,
+              path: AppRoutePaths.chats,
+              builder: (context, state) => const ChatsView(),
+            ),
+          ],
+        ),
+        // Add empty branches for now if using more tabs
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              name: AppRouteNames.statuses,
+              path: AppRoutePaths.statuses,
+              builder: (context, state) => const StatusesView(),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              name: AppRouteNames.calls,
+              path: AppRoutePaths.calls,
+              builder: (context, state) => const CallsView(),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/calls',
+              builder: (context, state) =>
+                  const Scaffold(body: Center(child: Text("Calls"))),
+            ),
+          ],
+        ),
+      ],
     ),
   ],
 );

@@ -30,7 +30,7 @@ class CompleteYourProfileView extends ConsumerWidget {
 
       // Only show success when it changes
       if (next.success == true && previous?.success != true) {
-        context.goNamed(AppRouteNames.home);
+        context.goNamed(AppRouteNames.chats);
       }
     });
 
