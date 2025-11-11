@@ -32,6 +32,9 @@
     "error_auth_sms_timeout": "Verification code timed out. Please try again.",
     "error_auth_invalid_verification_code": "Incorrect verification code. Please double-check and try again.",
     "error_auth_default": "Something went wrong. Please try again.",
+    "error_auth_otp_send_failed": "We couldn't send the OTP. Please try again later.",
+    "error_auth_otp_expired": "Your OTP has expired. Please request a new one.",
+    "error_auth_otp_invalid": "The OTP is invalid. Please try again.",
 
     "error_auth_google_canceled": "You cancelled Google sign-in.",
     "error_auth_google_interrupted": "Sign-in was interrupted. Please try again.",
@@ -99,11 +102,12 @@
     "auth_signing_out" : "Signing out...",
     "auth_signing_with_google" : "Signing in with Google...",
     "auth_complete_your_profile" : "Complete your profile",
-    "auth_complete_your_profile_desc" : "Almost done! Let’s personalize your account to complete your profile.",
+    "auth_complete_your_profile_desc" : "Let’s personalize your account to complete your profile.",
     "auth_profile_updated_success": "Profile updated successfully!",
     "auth_first_name_desc": "Ali, John, etc.",
     "auth_last_name_desc": "Khan, Doe, etc.",
     "auth_bio": "Bio",
-    "auth_phone_field_hint" : "Enter your phone number after the country code"
+    "auth_phone_field_hint" : "Enter your phone number after the country code",
+    "auth_verifying_otp" : "Verifying OTP..."
 
 }

@@ -32,6 +32,10 @@
     "error_auth_sms_timeout": "انتهت مهلة استلام رمز التحقق. حاول مرة أخرى.",
     "error_auth_invalid_verification_code": "رمز التحقق غير صحيح. تأكد وأعد المحاولة.",
     "error_auth_default": "حدث خطأ ما. حاول مرة أخرى.",
+    "error_auth_otp_send_failed": "لم نتمكن من إرسال رمز التحقق. يرجى المحاولة لاحقًا.",
+    "error_auth_otp_expired": "انتهت صلاحية رمز التحقق. يرجى طلب رمز جديد.",
+    "error_auth_otp_invalid": "رمز التحقق غير صالح. يرجى المحاولة مرة أخرى.",
+
 
     "error_auth_google_canceled": "ألغيت تسجيل الدخول باستخدام Google.",
     "error_auth_google_interrupted": "تمت مقاطعة تسجيل الدخول. حاول مرة أخرى.",
@@ -104,5 +108,6 @@
     "auth_first_name_desc": "علي، جون، إلخ.",
     "auth_last_name_desc": "يوسف، مصطفي، إلخ.",
     "auth_bio" : "نبذة عنك",
-    "auth_phone_field_hint" : "أدخل رقم الهاتف بعد كود البلد"
+    "auth_phone_field_hint" : "أدخل رقم الهاتف بعد كود البلد",
+    "auth_verifying_otp" : "جارٍ التحقق من رمز ..."
 }

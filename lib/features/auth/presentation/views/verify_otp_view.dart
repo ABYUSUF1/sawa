@@ -1,79 +1,60 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization/easy_localization.dart' hide TextDirection;
+
 import 'package:flutter/material.dart';
-import 'package:sawa/core/widgets/buttons/custom_elevated_button.dart';
-import 'package:sawa/core/widgets/buttons/custom_outlined_button.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sawa/generated/locale_keys.g.dart';
 
-import '../../../../core/constants/app_assets.dart';
-import '../../../../core/utils/constant/layout_constant.dart';
-import '../../../../core/widgets/custom_illustration_widget.dart';
-import '../widgets/otp_field.dart';
+import '../../../../core/router/app_route_name.dart';
+import '../../../../core/widgets/show_custom_snack_bar.dart';
+import '../riverpod/auth_providers.dart';
+import '../riverpod/notifiers/verify_otp/verify_otp_state.dart';
+import '../widgets/verify_otp_widgets/verify_otp_view_body.dart';
 
-class VerifyOtpView extends StatelessWidget {
-  const VerifyOtpView({super.key});
+class VerifyOtpView extends ConsumerWidget {
+  final String phoneNumber;
+  const VerifyOtpView({super.key, required this.phoneNumber});
 
   @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final otpNotifierProvider = verifyOtpNotifierProvider(phoneNumber);
+
+    final otpState = ref.watch(otpNotifierProvider);
+    final otpNotifier = ref.read(otpNotifierProvider.notifier);
+
+    // Listen for success/error
+    ref.listen<VerifyOtpState>(otpNotifierProvider, (previous, next) {
+      // Only show error when it changes
+      if (next.error != null && next.error != previous?.error) {
+        CustomSnackBar.show(
+          context,
+          message: next.error!,
+          type: SnackBarType.error,
+        );
+      }
+
+      // Only show success when it changes
+      if (next.success == true && previous?.success != true) {
+        CustomSnackBar.show(
+          context,
+          message: context.tr(LocaleKeys.auth_verify_otp_verified),
+          type: SnackBarType.success,
+        );
+
+        if (next.user!.isProfileIncomplete) {
+          context.goNamed(AppRouteNames.completeProfile);
+        } else {
+          context.goNamed(AppRouteNames.home);
+        }
+      }
+    });
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Center(
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: kMobileWidth),
-            child: Column(
-              children: [
-                Text(
-                  context.tr(LocaleKeys.auth_verify_your_otp),
-                  style: theme.textTheme.titleLarge,
-                ),
-                const SizedBox(height: 5),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      context.tr(LocaleKeys.auth_verify_otp_desc_1),
-                      style: theme.textTheme.bodyMedium!.copyWith(
-                        color: theme.colorScheme.onSurfaceVariant,
-                      ),
-                    ),
-                    Text(
-                      "+91 1234567890 ",
-                      style: theme.textTheme.bodyMedium!.copyWith(
-                        color: theme.colorScheme.primary,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Text(
-                      context.tr(LocaleKeys.auth_verify_otp_desc_2),
-                      style: theme.textTheme.bodyMedium!.copyWith(
-                        color: theme.colorScheme.onSurfaceVariant,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 30),
-                const CustomIllustrationWidget(
-                  svgImage: AppAssets.illustrationsOtpVerification,
-                ),
-                const SizedBox(height: 50),
-                const OtpField(),
-                const SizedBox(height: 50),
-                CustomElevatedButton(
-                  label: context.tr(LocaleKeys.auth_verify_otp_check_button),
-                  onTap: () {},
-                ),
-                const SizedBox(height: 16),
-                CustomOutlinedButton(
-                  label: context.tr(LocaleKeys.auth_verify_otp_resend_code),
-                  onTap: () {},
-                ),
-              ],
-            ),
-          ),
-        ),
+      body: VerifyOtpViewBody(
+        otpNotifier: otpNotifier,
+        phoneNumber: phoneNumber,
+        otpState: otpState,
       ),
     );
   }

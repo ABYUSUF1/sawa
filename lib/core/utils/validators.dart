@@ -10,16 +10,17 @@ class Validators {
     return null;
   }
 
-  static String? validateName(String? value) {
+  static String? validateName(String? value, [bool? enableSpace = true]) {
     if (value == null || value.isEmpty) {
       return LocaleKeys.validators_name_required.tr();
     }
+
     if (value.length < 3) {
       return LocaleKeys.validators_name_short.tr();
     }
 
     // No Space allowed
-    if (value.contains(' ')) {
+    if (enableSpace == true && value.contains(' ')) {
       return LocaleKeys.validators_name_no_space.tr();
     }
 

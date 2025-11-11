@@ -15,8 +15,10 @@ class AuthRepoImpl implements AuthRepo {
 
   @override
   Future<UserEntity> verifyOtp(String otp, String phone) async {
-    final userModel = await _remote.verifyOtp(otp, phone);
-    return userModel.toEntity();
+    final authUser = await _remote.verifyOtp(otp, phone);
+    final user = await _remote.getOrCreateUser(authUser);
+
+    return user.toEntity();
   }
 
   @override
@@ -33,5 +35,21 @@ class AuthRepoImpl implements AuthRepo {
   @override
   Future<void> setUserOnlineStatus(String userId, bool isOnline) async {
     await _remote.setUserOnlineStatus(userId, isOnline);
+  }
+
+  @override
+  Future<UserEntity?> getUser(String userId) async {
+    final userModel = await _remote.getUser(userId);
+    return userModel?.toEntity();
+  }
+
+  @override
+  String? myUserId() {
+    return _remote.userId;
+  }
+
+  @override
+  bool isSignedIn() {
+    return _remote.isSignedIn;
   }
 }

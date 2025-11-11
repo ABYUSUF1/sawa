@@ -2,14 +2,22 @@ import 'package:sawa/features/auth/data/model/user_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthRemoteDatasource {
-  final _supabase = Supabase.instance.client;
+  final SupabaseClient _supabase = Supabase.instance.client;
+  User? get _currentUser => _supabase.auth.currentUser;
+  SupabaseQueryBuilder get _usersTable => _supabase.from('users');
 
-  // Sign in with phone number
+  /// Nullable userId
+  String? get userId => _currentUser?.id;
+
+  bool get isSignedIn =>
+      _currentUser != null && _currentUser!.phoneConfirmedAt != null;
+
+  /// Send OTP to the user's phone
   Future<void> signInWithPhoneNumber(String phoneNumber) async {
     await _supabase.auth.signInWithOtp(phone: phoneNumber);
   }
 
-  // Verify OTP
+  /// Verify OTP and return authenticated Supabase user
   Future<UserModel> verifyOtp(String otp, String phone) async {
     final response = await _supabase.auth.verifyOTP(
       phone: phone,
@@ -18,44 +26,69 @@ class AuthRemoteDatasource {
     );
 
     final supaUser = response.user!;
-    final userModel = UserModel.fromSupabaseUser(supaUser);
-
-    return userModel;
+    return UserModel.fromSupabaseUser(supaUser);
   }
 
-  // Sign out
-  Future<void> signOut() async {
-    await _supabase.auth.signOut();
+  /// Sign out the current user
+  Future<void> signOut() async => _supabase.auth.signOut();
+
+  /// Get user by ID (or null if not found)
+  Future<UserModel?> getUser(String userId) async {
+    final response = await _usersTable.select().eq('id', userId).maybeSingle();
+    print('response: $response');
+    return response != null ? UserModel.fromJson(response) : null;
   }
 
-  // Update profile
+  /// Create a new user in the database
+  Future<void> createUser(UserModel user) async {
+    await _usersTable.insert({
+      ...user.toJson(),
+      'created_at': DateTime.now().toUtc().toIso8601String(),
+      'updated_at': DateTime.now().toUtc().toIso8601String(),
+    });
+  }
+
+  /// Update user profile info
   Future<UserModel> updateProfile(UserModel user) async {
-    await _supabase
-        .from('users')
-        .update({
-          'first_name': user.firstName,
-          'last_name': user.lastName,
-          'bio': user.bio,
-          'profile_image': user.profileImage,
-          'updated_at': DateTime.now().toIso8601String(),
-        })
-        .eq('id', user.id);
+    final updatedData = {
+      'first_name': user.firstName,
+      'last_name': user.lastName,
+      'bio': user.bio,
+      'profile_image': user.profileImage,
+      'updated_at': DateTime.now().toUtc().toIso8601String(),
+    };
 
-    final response = await _supabase
-        .from('users')
-        .select()
+    final updated = await _usersTable
+        .update(updatedData)
         .eq('id', user.id)
+        .select()
         .single();
-    return UserModel.fromJson(response);
+
+    return UserModel.fromJson(updated);
   }
 
+  /// Update user's online/offline status
   Future<void> setUserOnlineStatus(String userId, bool isOnline) async {
-    await _supabase
-        .from('users')
+    await _usersTable
         .update({
           'is_online': isOnline,
-          'last_seen_at': isOnline ? null : DateTime.now().toIso8601String(),
+          'last_seen_at': isOnline
+              ? null
+              : DateTime.now().toUtc().toIso8601String(),
         })
         .eq('id', userId);
+  }
+
+  /// Get existing user or create one if not found (atomic upsert)
+  Future<UserModel> getOrCreateUser(UserModel authUser) async {
+    final existing = await getUser(authUser.id);
+    if (existing != null) return existing;
+
+    await _usersTable.upsert({
+      ...authUser.toJson(),
+      'created_at': DateTime.now().toUtc().toIso8601String(),
+      'updated_at': DateTime.now().toUtc().toIso8601String(),
+    });
+    return authUser;
   }
 }

@@ -34,6 +34,9 @@ abstract class  LocaleKeys {
   static const error_auth_sms_timeout = 'error_auth_sms_timeout';
   static const error_auth_invalid_verification_code = 'error_auth_invalid_verification_code';
   static const error_auth_default = 'error_auth_default';
+  static const error_auth_otp_send_failed = 'error_auth_otp_send_failed';
+  static const error_auth_otp_expired = 'error_auth_otp_expired';
+  static const error_auth_otp_invalid = 'error_auth_otp_invalid';
   static const error_auth_google_canceled = 'error_auth_google_canceled';
   static const error_auth_google_interrupted = 'error_auth_google_interrupted';
   static const error_auth_google_error = 'error_auth_google_error';
@@ -101,5 +104,6 @@ abstract class  LocaleKeys {
   static const auth_last_name_desc = 'auth_last_name_desc';
   static const auth_bio = 'auth_bio';
   static const auth_phone_field_hint = 'auth_phone_field_hint';
+  static const auth_verifying_otp = 'auth_verifying_otp';
 
 }

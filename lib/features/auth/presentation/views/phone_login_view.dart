@@ -2,13 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
-import 'package:sawa/core/utils/controllers/phone_field_controller.dart';
 import 'package:sawa/generated/locale_keys.g.dart';
 
-import '../../../../core/providers/theme_providers.dart';
-import '../../../../core/utils/constant/layout_constant.dart';
-import '../../../../core/widgets/buttons/custom_elevated_button.dart';
-import '../../../../core/widgets/text_field_widgets/custom_phone_field.dart';
+import '../../../../core/riverpod/theme_providers.dart';
+import '../widgets/phone_login_view_body.dart';
 
 class PhoneLoginView extends ConsumerWidget {
   const PhoneLoginView({super.key});
@@ -16,6 +13,7 @@ class PhoneLoginView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -46,38 +44,7 @@ class PhoneLoginView extends ConsumerWidget {
           const SizedBox(width: 8),
         ],
       ),
-      body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: kMobileWidth),
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 50),
-                Text(
-                  context.tr(LocaleKeys.auth_sign_in_with_phone_number),
-                  style: theme.textTheme.titleLarge,
-                ),
-                const SizedBox(height: 5),
-                Text(
-                  context.tr(LocaleKeys.auth_sign_in_with_phone_number_desc),
-                  style: theme.textTheme.bodyMedium!.copyWith(
-                    color: theme.colorScheme.onSurfaceVariant,
-                  ),
-                ),
-                const SizedBox(height: 30),
-                CustomPhoneField(controller: PhoneFieldController()),
-                const SizedBox(height: 30),
-                CustomElevatedButton(
-                  label: context.tr(LocaleKeys.common_continue),
-                  onTap: () {},
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
+      body: const PhoneLoginViewBody(),
     );
   }
 }

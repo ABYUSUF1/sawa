@@ -25,6 +25,10 @@ class UserEntity {
     required this.isOnline,
   });
 
+  bool get isProfileIncomplete {
+    return firstName.trim().isEmpty || lastName.trim().isEmpty;
+  }
+
   // Copy with
   UserEntity copyWith({
     String? phoneNumber,

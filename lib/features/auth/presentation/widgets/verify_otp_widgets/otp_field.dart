@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pinput/pinput.dart';
 
+import '../../../../../generated/locale_keys.g.dart';
+
 class OtpField extends StatelessWidget {
-  const OtpField({super.key});
+  final TextEditingController controller;
+
+  const OtpField({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -13,12 +17,12 @@ class OtpField extends StatelessWidget {
       textDirection: TextDirection.ltr, // force left-to-right
       child: Pinput(
         length: 6,
-        controller: TextEditingController(),
+        controller: controller, // use passed controller
         onTapOutside: (_) => FocusManager.instance.primaryFocus?.unfocus(),
         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         validator: (value) => value?.length == 6
             ? null
-            : " context.tr(LocaleKeys.auth_verify_otp_code_digit_warning)",
+            : context.tr(LocaleKeys.auth_verify_otp_code_digit_warning),
         focusedPinTheme: PinTheme(
           width: 56,
           height: 56,
@@ -32,7 +36,7 @@ class OtpField extends StatelessWidget {
           width: 55,
           height: 55,
           decoration: BoxDecoration(
-            color: theme.colorScheme.surfaceContainerLow,
+            color: theme.colorScheme.primaryContainer,
             borderRadius: BorderRadius.circular(8),
           ),
         ),

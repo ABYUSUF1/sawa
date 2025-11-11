@@ -46,6 +46,9 @@ class CodegenLoader extends AssetLoader{
   "error_auth_sms_timeout": "انتهت مهلة استلام رمز التحقق. حاول مرة أخرى.",
   "error_auth_invalid_verification_code": "رمز التحقق غير صحيح. تأكد وأعد المحاولة.",
   "error_auth_default": "حدث خطأ ما. حاول مرة أخرى.",
+  "error_auth_otp_send_failed": "لم نتمكن من إرسال رمز التحقق. يرجى المحاولة لاحقًا.",
+  "error_auth_otp_expired": "انتهت صلاحية رمز التحقق. يرجى طلب رمز جديد.",
+  "error_auth_otp_invalid": "رمز التحقق غير صالح. يرجى المحاولة مرة أخرى.",
   "error_auth_google_canceled": "ألغيت تسجيل الدخول باستخدام Google.",
   "error_auth_google_interrupted": "تمت مقاطعة تسجيل الدخول. حاول مرة أخرى.",
   "error_auth_google_error": "حدثت مشكلة في تسجيل الدخول باستخدام Google.",
@@ -107,12 +110,13 @@ class CodegenLoader extends AssetLoader{
   "auth_signing_out": "جارٍ تسجيل الخروج...",
   "auth_signing_with_google": "جارٍ تسجيل الدخول بجوجل...",
   "auth_complete_your_profile": "اكمل ملفك الشخصي",
-  "auth_complete_your_profile_desc": "لقد أوشكت على الانتهاء! لنقم بتخصيص حسابك لإكمال ملفك الشخصي.",
+  "auth_complete_your_profile_desc": "لنقم بتخصيص حسابك لإكمال ملفك الشخصي.",
   "auth_profile_updated_success": "تم تحديث الملف الشخصي بنجاح!",
   "auth_first_name_desc": "علي، جون، إلخ.",
   "auth_last_name_desc": "يوسف، مصطفي، إلخ.",
   "auth_bio": "نبذة عنك",
-  "auth_phone_field_hint": "أدخل رقم الهاتف بعد كود البلد"
+  "auth_phone_field_hint": "أدخل رقم الهاتف بعد كود البلد",
+  "auth_verifying_otp": "جارٍ التحقق من رمز ..."
 };
 static const Map<String,dynamic> _en = {
   "app_name": "Sawa",
@@ -146,6 +150,9 @@ static const Map<String,dynamic> _en = {
   "error_auth_sms_timeout": "Verification code timed out. Please try again.",
   "error_auth_invalid_verification_code": "Incorrect verification code. Please double-check and try again.",
   "error_auth_default": "Something went wrong. Please try again.",
+  "error_auth_otp_send_failed": "We couldn't send the OTP. Please try again later.",
+  "error_auth_otp_expired": "Your OTP has expired. Please request a new one.",
+  "error_auth_otp_invalid": "The OTP is invalid. Please try again.",
   "error_auth_google_canceled": "You cancelled Google sign-in.",
   "error_auth_google_interrupted": "Sign-in was interrupted. Please try again.",
   "error_auth_google_error": "Something went wrong with Google sign-in.",
@@ -207,12 +214,13 @@ static const Map<String,dynamic> _en = {
   "auth_signing_out": "Signing out...",
   "auth_signing_with_google": "Signing in with Google...",
   "auth_complete_your_profile": "Complete your profile",
-  "auth_complete_your_profile_desc": "Almost done! Let’s personalize your account to complete your profile.",
+  "auth_complete_your_profile_desc": "Let’s personalize your account to complete your profile.",
   "auth_profile_updated_success": "Profile updated successfully!",
   "auth_first_name_desc": "Ali, John, etc.",
   "auth_last_name_desc": "Khan, Doe, etc.",
   "auth_bio": "Bio",
-  "auth_phone_field_hint": "Enter your phone number after the country code"
+  "auth_phone_field_hint": "Enter your phone number after the country code",
+  "auth_verifying_otp": "Verifying OTP..."
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": _ar, "en": _en};
 }

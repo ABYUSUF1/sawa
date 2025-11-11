@@ -8,31 +8,31 @@ part of 'user_model.dart';
 
 _UserModel _$UserModelFromJson(Map<String, dynamic> json) => _UserModel(
   id: json['id'] as String,
-  phoneNumber: json['phoneNumber'] as String,
-  firstName: json['firstName'] as String,
-  lastName: json['lastName'] as String,
+  phoneNumber: json['phone_number'] as String,
+  firstName: json['first_name'] as String,
+  lastName: json['last_name'] as String,
   bio: json['bio'] as String?,
-  profileImage: json['profileImage'] as String?,
-  createdAt: DateTime.parse(json['createdAt'] as String),
-  updatedAt: json['updatedAt'] == null
+  profileImage: json['profile_image'] as String?,
+  createdAt: DateTime.parse(json['created_at'] as String),
+  updatedAt: json['updated_at'] == null
       ? null
-      : DateTime.parse(json['updatedAt'] as String),
-  lastSeenAt: json['lastSeenAt'] == null
+      : DateTime.parse(json['updated_at'] as String),
+  lastSeenAt: json['last_seen_at'] == null
       ? null
-      : DateTime.parse(json['lastSeenAt'] as String),
-  isOnline: json['isOnline'] as bool? ?? false,
+      : DateTime.parse(json['last_seen_at'] as String),
+  isOnline: json['is_online'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$UserModelToJson(_UserModel instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'phoneNumber': instance.phoneNumber,
-      'firstName': instance.firstName,
-      'lastName': instance.lastName,
+      'phone_number': instance.phoneNumber,
+      'first_name': instance.firstName,
+      'last_name': instance.lastName,
       'bio': instance.bio,
-      'profileImage': instance.profileImage,
-      'createdAt': instance.createdAt.toIso8601String(),
-      'updatedAt': instance.updatedAt?.toIso8601String(),
-      'lastSeenAt': instance.lastSeenAt?.toIso8601String(),
-      'isOnline': instance.isOnline,
+      'profile_image': instance.profileImage,
+      'created_at': instance.createdAt.toIso8601String(),
+      'updated_at': instance.updatedAt?.toIso8601String(),
+      'last_seen_at': instance.lastSeenAt?.toIso8601String(),
+      'is_online': instance.isOnline,
     };
