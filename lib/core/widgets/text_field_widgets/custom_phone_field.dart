@@ -91,7 +91,7 @@ class _CustomPhoneFieldState extends State<CustomPhoneField> {
       onChanged: _handleChange,
       decoration: InputDecoration(
         labelText: widget.isSearchMode
-            ? context.tr(LocaleKeys.common_search_by_phone)
+            ? context.tr(LocaleKeys.common_search_phone)
             : context.tr(LocaleKeys.auth_phone),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
         prefixIcon: _buildCountryCodePicker(),

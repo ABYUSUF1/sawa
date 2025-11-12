@@ -13,7 +13,15 @@
     "common_continue" : "متابعة",
     "common_search" : "بحث",
     "common_searching" : "جارٍ البحث...",
-    "common_search_by_phone" : "بحث بالجوال",
+    "common_search_phone" : "بحث برقم الجوال",
+    "common_search_chats" : "بحث في الدردشات...",
+    "common_search_name_or_phone" : "بحث بالاسم او رقم الجوال",
+    "common_invite" : "دعوة",
+    "common_invite_to_sawa" : "دعوة لسوا",
+    "common_invite_friend" : "دعوة صديق",
+    "common_help" : "مساعدة",
+    "common_refresh" : "تحديث",
+
 
     "error_auth_invalid_credential": "البريد الإلكتروني أو كلمة المرور غير صحيحة. حاول مرة أخرى.",
     "error_auth_email_already_in_use": "هذا البريد مسجل بالفعل. حاول تسجيل الدخول أو استخدم بريدًا آخر.",
@@ -109,5 +117,22 @@
     "auth_last_name_desc": "يوسف، مصطفي، إلخ.",
     "auth_bio" : "نبذة عنك",
     "auth_phone_field_hint" : "أدخل رقم الهاتف بعد كود البلد",
-    "auth_verifying_otp" : "جارٍ التحقق من رمز ..."
+    "auth_verifying_otp" : "جارٍ التحقق من رمز ...",
+
+    "chat_archived": "المؤرشفة",
+    "chat_filters_all": "الكل",
+    "chat_filters_unread": "غير المقروءة",
+    "chat_filters_favorites": "المفضلة",
+    "chat_filters_groups": "المجموعات",
+    "chat_settings": "الإعدادات",
+    "chat_read_all": "تحديد الكل كمقروء",
+    "chat_new_group": "مجموعة جديدة",
+
+
+    "contacts_no_contacts": "لا توجد جهات اتصال حالياً.",
+    "contacts_add_new": "إضافة جهة اتصال جديدة",
+    "contacts_on_sawa": "جهات الاتصال الموجودة على سوا",
+    "contacts_share_invite_link": "مشاركة رابط الدعوة مع الأصدقاء",
+    "contacts_help": "مساعدة في جهات الاتصال"
+
 }

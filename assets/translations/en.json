@@ -13,7 +13,15 @@
     "common_continue" : "Continue",
     "common_search" : "Search",
     "common_searching" : "Searching...",
-    "common_search_by_phone" : "Search by phone",
+    "common_search_phone" : "Search phone number",
+    "common_search_chats" : "Search chats...",
+    "common_search_name_or_phone" : "Search name or phone number",
+    "common_invite" : "Invite",
+    "common_invite_to_sawa" : "Invite to Sawa",
+    "common_invite_friend" : "Invite a friend",
+    "common_help" : "Help",
+    "common_refresh" : "Refresh",
+
 
     "error_auth_invalid_credential": "The email or password is incorrect or not found. Please try again.",
     "error_auth_email_already_in_use": "That email is already registered. Try logging in or use a different email.",
@@ -108,6 +116,21 @@
     "auth_last_name_desc": "Khan, Doe, etc.",
     "auth_bio": "Bio",
     "auth_phone_field_hint" : "Enter your phone number after the country code",
-    "auth_verifying_otp" : "Verifying OTP..."
+    "auth_verifying_otp" : "Verifying OTP...",
+    "chat_archived": "Archived",
+    "chat_filters_unread": "Unread",
+    "chat_filters_all": "All",
+    "chat_filters_favorites": "Favorites",
+    "chat_filters_groups": "Groups",
+    "chat_settings": "Settings",
+    "chat_read_all": "Read All",
+    "chat_new_group": "New Group",
+
+
+    "contacts_no_contacts": "No contacts found.",
+    "contacts_add_new": "Add New Contact",
+    "contacts_on_sawa": "Contacts on Sawa",
+    "contacts_share_invite_link" : "Share invite link",
+    "contacts_help" : "Contacts Help"
 
 }

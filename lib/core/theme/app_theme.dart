@@ -53,7 +53,7 @@ class AppTheme {
       primary: AppColors.seedColor,
       onPrimary: Colors.white,
       // onSurface: Colors.white,
-      onSurfaceVariant: const Color(0xFF86899D),
+      onSurfaceVariant: const Color.fromARGB(255, 145, 147, 163),
       // onError: Color(0xffF27A80),
       surfaceContainerHigh: const Color(0xff212330),
       surfaceContainerLow: const Color(0xff303343),

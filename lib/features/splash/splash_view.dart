@@ -1,13 +1,13 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:vector_graphics/vector_graphics.dart';
 
+import '../../core/constants/app_assets.dart';
 import '../../core/riverpod/auth/global_auth_provider.dart';
 import '../../core/riverpod/auth/global_auth_state.dart';
 import '../../core/router/app_route_name.dart';
-import '../../generated/locale_keys.g.dart';
 
 class SplashView extends ConsumerWidget {
   const SplashView({super.key});
@@ -41,9 +41,14 @@ class SplashView extends ConsumerWidget {
               duration: const Duration(milliseconds: 300),
               curve: Curves.easeIn,
               from: 30,
-              child: Text(
-                context.tr(LocaleKeys.app_name),
-                style: theme.textTheme.headlineLarge,
+              child: VectorGraphic(
+                loader: const AssetBytesLoader(AppAssets.logosSawaLogo),
+                width: 30,
+                height: 30,
+                colorFilter: ColorFilter.mode(
+                  theme.colorScheme.onSurface,
+                  BlendMode.srcIn,
+                ),
               ),
             ),
           ),

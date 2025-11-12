@@ -16,7 +16,14 @@ abstract class  LocaleKeys {
   static const common_continue = 'common_continue';
   static const common_search = 'common_search';
   static const common_searching = 'common_searching';
-  static const common_search_by_phone = 'common_search_by_phone';
+  static const common_search_phone = 'common_search_phone';
+  static const common_search_chats = 'common_search_chats';
+  static const common_search_name_or_phone = 'common_search_name_or_phone';
+  static const common_invite = 'common_invite';
+  static const common_invite_to_sawa = 'common_invite_to_sawa';
+  static const common_invite_friend = 'common_invite_friend';
+  static const common_help = 'common_help';
+  static const common_refresh = 'common_refresh';
   static const error_auth_invalid_credential = 'error_auth_invalid_credential';
   static const error_auth_email_already_in_use = 'error_auth_email_already_in_use';
   static const error_auth_invalid_email = 'error_auth_invalid_email';
@@ -105,5 +112,18 @@ abstract class  LocaleKeys {
   static const auth_bio = 'auth_bio';
   static const auth_phone_field_hint = 'auth_phone_field_hint';
   static const auth_verifying_otp = 'auth_verifying_otp';
+  static const chat_archived = 'chat_archived';
+  static const chat_filters_all = 'chat_filters_all';
+  static const chat_filters_unread = 'chat_filters_unread';
+  static const chat_filters_favorites = 'chat_filters_favorites';
+  static const chat_filters_groups = 'chat_filters_groups';
+  static const chat_settings = 'chat_settings';
+  static const chat_read_all = 'chat_read_all';
+  static const chat_new_group = 'chat_new_group';
+  static const contacts_no_contacts = 'contacts_no_contacts';
+  static const contacts_add_new = 'contacts_add_new';
+  static const contacts_on_sawa = 'contacts_on_sawa';
+  static const contacts_share_invite_link = 'contacts_share_invite_link';
+  static const contacts_help = 'contacts_help';
 
 }

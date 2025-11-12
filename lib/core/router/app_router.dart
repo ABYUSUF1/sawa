@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sawa/features/chats/presentation/views/chats_view.dart';
+import 'package:sawa/features/contacts/presentation/views/contacts_view.dart';
 import 'package:sawa/features/splash/splash_view.dart';
 import 'package:sawa/features/statuses/presentation/views/statuses_view.dart';
 
@@ -86,6 +87,11 @@ final GoRouter appRouter = GoRouter(
           ],
         ),
       ],
+    ),
+    GoRoute(
+      name: AppRouteNames.contacts,
+      path: AppRoutePaths.contacts,
+      builder: (context, state) => const ContactsView(),
     ),
   ],
 );

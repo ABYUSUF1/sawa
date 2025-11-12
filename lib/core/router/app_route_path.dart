@@ -6,4 +6,5 @@ abstract final class AppRoutePaths {
   static const String chats = '/chats';
   static const String statuses = '/statuses';
   static const String calls = '/calls';
+  static const String contacts = '/contacts';
 }

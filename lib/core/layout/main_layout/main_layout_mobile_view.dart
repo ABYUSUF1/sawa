@@ -77,7 +77,7 @@ class MainLayoutMobileView extends StatelessWidget {
             right: 16,
             bottom: 100, // Aligns above NavigationBar
             child: ZoomIn(
-              key: ValueKey("floating-${currentDestination.label}"),
+              key: ValueKey(currentDestination.label),
               curve: Curves.ease,
               duration: const Duration(milliseconds: 300),
               child: FloatingActionButton(

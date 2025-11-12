@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:sawa/core/layout/responsive_layout.dart';
 
+import '../../router/app_route_name.dart';
 import 'destinations.dart';
 import 'main_layout_mobile_view.dart';
 import 'main_layout_tablet_view.dart';
@@ -22,7 +23,7 @@ class MainLayout extends StatelessWidget {
         selectedIcon: IconsaxPlusBold.message,
         floatingIcon: IconsaxPlusBold.message_add_1,
         onFloatTapped: () {
-          debugPrint("Add chat tapped");
+          context.pushNamed(AppRouteNames.contacts);
         },
       ),
       Destinations(
@@ -44,6 +45,7 @@ class MainLayout extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Scaffold(
+      backgroundColor: theme.colorScheme.surfaceContainerHigh,
       body: ResponsiveLayout(
         mobileChild: MainLayoutMobileView(
           navigationShell: navigationShell,
