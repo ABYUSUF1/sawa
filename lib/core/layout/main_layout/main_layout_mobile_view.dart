@@ -30,42 +30,51 @@ class MainLayoutMobileView extends StatelessWidget {
             MediaQuery.removePadding(
               context: context,
               removeTop: true,
-              removeBottom: true,
-              child: NavigationBar(
-                backgroundColor: theme.colorScheme.surfaceContainerHigh,
-                indicatorColor: theme.colorScheme.primaryContainer,
-                selectedIndex: navigationShell.currentIndex,
-                onDestinationSelected: navigationShell.goBranch,
-                labelTextStyle: WidgetStateTextStyle.resolveWith((states) {
-                  final isSelected = states.contains(WidgetState.selected);
-                  return TextStyle(
-                    color: isSelected
-                        ? theme.colorScheme.onSurface
-                        : theme.colorScheme.onSurface.withValues(alpha: .8),
-                    fontWeight: isSelected
-                        ? FontWeight.bold
-                        : FontWeight.normal,
-                  );
-                }),
-                destinations: destinations
-                    .map(
-                      (d) => NavigationDestination(
-                        icon: Icon(
-                          d.icon,
-                          color: theme.colorScheme.onSurface.withValues(
-                            alpha: .8,
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border(
+                    top: BorderSide(
+                      color: theme.colorScheme.outline, // or any color you want
+                      width: isDarkMode ? .1 : .4, // thickness of the divider
+                    ),
+                  ),
+                ),
+                child: NavigationBar(
+                  backgroundColor: theme.colorScheme.surfaceContainerHigh,
+                  indicatorColor: theme.colorScheme.primaryContainer,
+                  selectedIndex: navigationShell.currentIndex,
+                  onDestinationSelected: navigationShell.goBranch,
+                  labelTextStyle: WidgetStateTextStyle.resolveWith((states) {
+                    final isSelected = states.contains(WidgetState.selected);
+                    return TextStyle(
+                      color: isSelected
+                          ? theme.colorScheme.onSurface
+                          : theme.colorScheme.onSurface.withValues(alpha: .8),
+                      fontWeight: isSelected
+                          ? FontWeight.bold
+                          : FontWeight.normal,
+                    );
+                  }),
+                  destinations: destinations
+                      .map(
+                        (d) => NavigationDestination(
+                          icon: Icon(
+                            d.icon,
+                            color: theme.colorScheme.onSurface.withValues(
+                              alpha: .8,
+                            ),
                           ),
+                          selectedIcon: Icon(
+                            d.selectedIcon,
+                            color: isDarkMode
+                                ? theme.colorScheme.primaryFixedDim
+                                : theme.colorScheme.primary,
+                          ),
+                          label: d.label,
                         ),
-                        selectedIcon: Icon(
-                          d.selectedIcon,
-                          color: isDarkMode
-                              ? theme.colorScheme.primaryFixedDim
-                              : theme.colorScheme.primary,
-                        ),
-                        label: d.label,
-                      ),
-                    )
-                    .toList(),
+                      )
+                      .toList(),
+                ),
               ),
             ),
           ],
@@ -75,7 +84,7 @@ class MainLayoutMobileView extends StatelessWidget {
         if (currentDestination.floatingIcon != null)
           Positioned(
             right: 16,
-            bottom: 100, // Aligns above NavigationBar
+            bottom: 140, // Aligns above NavigationBar
             child: ZoomIn(
               key: ValueKey(currentDestination.label),
               curve: Curves.ease,

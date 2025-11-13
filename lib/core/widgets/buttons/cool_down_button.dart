@@ -3,6 +3,8 @@ import 'package:animate_do/animate_do.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import '../../../generated/locale_keys.g.dart';
+
 class CooldownButton extends StatefulWidget {
   final String text;
   final int cooldownSeconds;
@@ -96,7 +98,7 @@ class _CooldownButtonState extends State<CooldownButton> {
                 FadeInDown(
                   from: 20,
                   duration: const Duration(milliseconds: 400),
-                  child: Text("context.tr(LocaleKeys.common_sending)"),
+                  child: Text(context.tr(LocaleKeys.common_sending)),
                 ),
               ],
             )

@@ -1,6 +1,7 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'core/riverpod/theme_providers.dart';
@@ -56,6 +57,30 @@ class MyApp extends ConsumerWidget {
       locale: context.locale,
       supportedLocales: context.supportedLocales,
       localizationsDelegates: context.localizationDelegates,
+      builder: (context, child) {
+        // Run after first frame
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          final isDark =
+              themeMode == ThemeMode.dark ||
+              (themeMode == ThemeMode.system &&
+                  MediaQuery.of(context).platformBrightness == Brightness.dark);
+
+          SystemChrome.setSystemUIOverlayStyle(
+            SystemUiOverlayStyle(
+              systemNavigationBarColor: isDark
+                  ? AppTheme.darkTheme(context).colorScheme.surfaceContainerHigh
+                  : AppTheme.lightTheme(
+                      context,
+                    ).colorScheme.surfaceContainerHigh,
+              systemNavigationBarIconBrightness: isDark
+                  ? Brightness.light
+                  : Brightness.dark,
+            ),
+          );
+        });
+
+        return child!;
+      },
     );
   }
 }

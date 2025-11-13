@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:sawa/core/utils/controllers/phone_field_controller.dart';
+import 'package:sawa/core/widgets/text_field_widgets/phone_field/phone_field_controller.dart';
 
 import '../../../../../../core/utils/get_friendly_failure.dart';
 import '../../auth_providers.dart';

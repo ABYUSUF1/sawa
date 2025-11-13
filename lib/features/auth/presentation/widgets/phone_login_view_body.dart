@@ -11,7 +11,7 @@ import 'package:sawa/generated/locale_keys.g.dart';
 
 import '../../../../core/utils/constant/layout_constant.dart';
 import '../../../../core/widgets/buttons/custom_elevated_button.dart';
-import '../../../../core/widgets/text_field_widgets/custom_phone_field.dart';
+import '../../../../core/widgets/text_field_widgets/phone_field/custom_phone_field.dart';
 
 class PhoneLoginViewBody extends ConsumerWidget {
   const PhoneLoginViewBody({super.key});
@@ -28,9 +28,7 @@ class PhoneLoginViewBody extends ConsumerWidget {
         success: () {
           context.goNamed(
             AppRouteNames.verifyOtp,
-            extra: e164PhoneFormat(
-              loginNotifier.phoneController.e164WithoutPlus,
-            ),
+            extra: e164PhoneFormat(loginNotifier.phoneController.e164),
           );
         },
         error: (message) {

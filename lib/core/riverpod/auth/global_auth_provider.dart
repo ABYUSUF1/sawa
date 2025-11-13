@@ -1,10 +1,9 @@
-import 'package:flutter_riverpod/legacy.dart';
-import 'package:sawa/core/riverpod/auth/global_auth_state.dart';
-import 'package:sawa/features/auth/presentation/riverpod/auth_providers.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../features/auth/domain/entity/user_entity.dart';
 import 'global_auth_notifier.dart';
 
 final globalAuthProvider =
-    StateNotifierProvider<GlobalAuthNotifier, GlobalAuthState>((ref) {
-      return GlobalAuthNotifier(ref.watch(authRepoProvider));
-    });
+    AsyncNotifierProvider<GlobalAuthNotifier, UserEntity?>(
+      () => GlobalAuthNotifier(),
+    );

@@ -16,7 +16,6 @@ class ContactsView extends StatelessWidget {
             actions: [PopupMenuButton(itemBuilder: (_) => [])],
             bottom: const ContactsSearchBar(),
           ),
-          const SliverToBoxAdapter(child: Text('Contacts')),
         ],
       ),
     );

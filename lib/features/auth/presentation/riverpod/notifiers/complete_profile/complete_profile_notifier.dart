@@ -1,10 +1,10 @@
+// complete_profile_notifier.dart
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod/legacy.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:sawa/core/riverpod/auth/global_auth_provider.dart';
-import 'package:sawa/core/riverpod/auth/global_auth_state.dart';
 import 'package:sawa/core/services/storage/bucket_names.dart';
 
 import '../../../../../../core/services/storage/storage_service.dart';
@@ -22,22 +22,18 @@ class CompleteProfileNotifier extends StateNotifier<CompleteProfileState> {
   final TextEditingController bioController = TextEditingController();
 
   CompleteProfileNotifier(this.ref) : super(const CompleteProfileState()) {
-    // Optionally preload current user values into controllers
-    final user = ref
-        .read(globalAuthProvider)
-        .maybeWhen(authenticated: (u) => u, orElse: () => null);
+    // Load current user values directly from AsyncValue<UserEntity?>
+    final user = ref.read(globalAuthProvider).value;
     if (user != null) {
       firstNameController.text = user.firstName;
       lastNameController.text = user.lastName;
       bioController.text = user.bio;
-      // keep profileImage in DB only (we don't set pickedImage here)
     }
   }
 
   /// Set/replace picked image (UI only). Passing null will clear it.
   void setPickedImage(File? file) {
     state = state.copyWith(pickedImageFile: file, error: null);
-    // note: do NOT flip success here — success is only for after backend update
   }
 
   void removePickedImage() => setPickedImage(null);
@@ -46,16 +42,13 @@ class CompleteProfileNotifier extends StateNotifier<CompleteProfileState> {
   Future<void> completeProfile() async {
     if (formKey.currentState?.validate() != true) return;
 
-    final user = ref
-        .read(globalAuthProvider)
-        .maybeWhen(authenticated: (u) => u, orElse: () => null);
-
+    // Get user directly from AsyncValue
+    final user = ref.read(globalAuthProvider).value;
     if (user == null) {
       state = state.copyWith(error: 'No authenticated user found');
       return;
     }
 
-    // keep pickedImageFile in state so UI doesn't lose preview while loading
     state = state.copyWith(isLoading: true, error: null, success: false);
 
     try {
@@ -85,15 +78,15 @@ class CompleteProfileNotifier extends StateNotifier<CompleteProfileState> {
       // update server
       final updatedUser = await repo.updateProfile(newUser);
 
-      // update global auth state so app sees the new profile
+      // update global auth state
       ref.read(globalAuthProvider.notifier).updateUser(updatedUser);
 
-      // mark success and keep pickedImageFile cleared (optional)
+      // mark success and keep pickedImageFile cleared
       state = state.copyWith(
         isLoading: false,
         success: true,
         error: null,
-        pickedImageFile: null, // clear local picked image after success
+        pickedImageFile: null,
       );
     } catch (e) {
       final failure = getFriendlyFailure(e);

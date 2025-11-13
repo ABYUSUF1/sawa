@@ -1,24 +1,25 @@
-import 'package:flutter_riverpod/legacy.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../features/auth/domain/entity/user_entity.dart';
 import '../../../features/auth/domain/repo/auth_repo.dart';
-import 'global_auth_state.dart';
+import '../../../features/auth/presentation/riverpod/auth_providers.dart';
 
-class GlobalAuthNotifier extends StateNotifier<GlobalAuthState> {
-  final AuthRepo _repo;
-  GlobalAuthNotifier(this._repo) : super(const GlobalAuthState.unknown()) {
-    checkAuthStatus();
+class GlobalAuthNotifier extends AsyncNotifier<UserEntity?> {
+  AuthRepo get _repo => ref.read(authRepoProvider);
+
+  @override
+  Future<UserEntity?> build() async {
+    return await checkAuthStatus();
   }
 
-  Future<void> checkAuthStatus() async {
+  Future<UserEntity?> checkAuthStatus() async {
     try {
       print('🔹 Checking auth status...');
       final userId = _repo.myUserId();
       print('🔹 myUserId() returned: $userId');
 
       if (userId == null || userId.isEmpty) {
-        print('⚠️ No user ID found — setting unauthenticated');
-        state = const GlobalAuthState.unauthenticated();
-        return;
+        print('⚠️ No user ID found — unauthenticated');
+        return null;
       }
 
       final currentUser = await _repo.getUser(userId);
@@ -26,28 +27,29 @@ class GlobalAuthNotifier extends StateNotifier<GlobalAuthState> {
 
       if (currentUser == null) {
         print('⚠️ No user document found — unauthenticated');
-        state = const GlobalAuthState.unauthenticated();
-      } else {
-        if (currentUser.firstName.isEmpty || currentUser.lastName.isEmpty) {
-          print('✅ Authenticated but incomplete profile');
-          state = GlobalAuthState.authenticated(currentUser.copyWith());
-        } else {
-          print('✅ Authenticated with full profile');
-          state = GlobalAuthState.authenticated(currentUser);
-        }
+        return null;
       }
+
+      return currentUser;
     } catch (e, st) {
       print('❌ checkAuthStatus failed: $e\n$st');
-      state = const GlobalAuthState.unauthenticated();
+      return null;
     }
   }
 
   Future<void> signOut() async {
     await _repo.signOut();
-    state = const GlobalAuthState.unauthenticated();
+    state = const AsyncData(null);
   }
 
   void updateUser(UserEntity updatedUser) {
-    state = GlobalAuthState.authenticated(updatedUser);
+    state = AsyncData(updatedUser);
+  }
+
+  // Helper getter for profile completion check
+  bool get isProfileComplete {
+    final user = state.value;
+    if (user == null) return false;
+    return user.firstName.isNotEmpty && user.lastName.isNotEmpty;
   }
 }
