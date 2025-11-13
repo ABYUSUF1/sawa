@@ -17,6 +17,7 @@ class SplashView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // Listen for auth state changes and navigate when ready
     ref.listen<AsyncValue<UserEntity?>>(globalAuthProvider, (previous, next) {
+      print('Auth state changed in SplashView listener');
       next.whenOrNull(
         data: (user) {
           _navigateBasedOnAuth(user, context);

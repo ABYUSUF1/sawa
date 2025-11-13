@@ -1,9 +1,9 @@
 import 'package:flutter/services.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'errors/auth_failure.dart';
-import 'errors/data_failure.dart';
-import 'errors/failure.dart';
-import 'errors/platform_failure.dart';
+import '../errors/auth_failure.dart';
+import '../errors/data_failure.dart';
+import '../errors/failure.dart';
+import '../errors/platform_failure.dart';
 
 Failure getFriendlyFailure(Object e) {
   print(e.toString());

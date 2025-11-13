@@ -26,6 +26,7 @@ class AuthRemoteDatasource {
     );
 
     final supaUser = response.user!;
+    print("phone number verified: ${supaUser.phone}");
     return UserModel.fromSupabaseUser(supaUser);
   }
 
@@ -35,7 +36,6 @@ class AuthRemoteDatasource {
   /// Get user by ID (or null if not found)
   Future<UserModel?> getUser(String userId) async {
     final response = await _usersTable.select().eq('id', userId).maybeSingle();
-    print('response: $response');
     return response != null ? UserModel.fromJson(response) : null;
   }
 

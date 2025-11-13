@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sawa/generated/locale_keys.g.dart';
 
+import '../../../../core/riverpod/auth/global_auth_provider.dart';
 import '../../../../core/router/app_route_name.dart';
 import '../../../../core/widgets/show_custom_snack_bar.dart';
 import '../riverpod/auth_providers.dart';
@@ -41,6 +42,8 @@ class VerifyOtpView extends ConsumerWidget {
           type: SnackBarType.success,
         );
 
+        ref.read(globalAuthProvider.notifier).updateUser(next.user!);
+
         if (next.user!.isProfileIncomplete) {
           context.goNamed(AppRouteNames.completeProfile);
         } else {
@@ -51,6 +54,7 @@ class VerifyOtpView extends ConsumerWidget {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      appBar: AppBar(),
       body: VerifyOtpViewBody(
         otpNotifier: otpNotifier,
         phoneNumber: phoneNumber,

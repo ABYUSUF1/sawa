@@ -36,7 +36,7 @@ class OtpField extends StatelessWidget {
           width: 55,
           height: 55,
           decoration: BoxDecoration(
-            color: theme.colorScheme.primaryContainer,
+            color: theme.colorScheme.surfaceContainerHigh,
             borderRadius: BorderRadius.circular(8),
           ),
         ),

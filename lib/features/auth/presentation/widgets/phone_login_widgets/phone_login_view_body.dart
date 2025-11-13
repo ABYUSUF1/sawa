@@ -3,15 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sawa/core/router/app_route_name.dart';
-import 'package:sawa/core/utils/format_phone_number.dart';
 import 'package:sawa/core/widgets/show_custom_snack_bar.dart';
 import 'package:sawa/features/auth/presentation/riverpod/auth_providers.dart';
 import 'package:sawa/features/auth/presentation/riverpod/notifiers/phone_login/phone_login_state.dart';
 import 'package:sawa/generated/locale_keys.g.dart';
 
-import '../../../../core/utils/constant/layout_constant.dart';
-import '../../../../core/widgets/buttons/custom_elevated_button.dart';
-import '../../../../core/widgets/text_field_widgets/phone_field/custom_phone_field.dart';
+import '../../../../../core/utils/constant/layout_constant.dart';
+import '../../../../../core/widgets/buttons/custom_elevated_button.dart';
+import 'custom_phone_field.dart';
 
 class PhoneLoginViewBody extends ConsumerWidget {
   const PhoneLoginViewBody({super.key});
@@ -26,9 +25,9 @@ class PhoneLoginViewBody extends ConsumerWidget {
     ref.listen<PhoneLoginState>(phoneLoginNotifierProvider, (previous, next) {
       next.whenOrNull(
         success: () {
-          context.goNamed(
+          context.pushNamed(
             AppRouteNames.verifyOtp,
-            extra: e164PhoneFormat(loginNotifier.phoneController.e164),
+            extra: loginNotifier.phoneController.text,
           );
         },
         error: (message) {
@@ -64,7 +63,9 @@ class PhoneLoginViewBody extends ConsumerWidget {
                   ),
                 ),
                 const SizedBox(height: 30),
+
                 CustomPhoneField(controller: loginNotifier.phoneController),
+
                 const SizedBox(height: 30),
                 CustomElevatedButton(
                   label: context.tr(LocaleKeys.common_continue),

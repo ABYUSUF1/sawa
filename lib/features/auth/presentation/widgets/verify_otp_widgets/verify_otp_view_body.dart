@@ -31,39 +31,37 @@ class VerifyOtpViewBody extends StatelessWidget {
 
     return Form(
       key: otpNotifier.formKey,
-      child: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(12),
-          child: Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: kMobileWidth),
-              child: Column(
-                children: [
-                  const SizedBox(height: 20),
-                  Text(
-                    context.tr(LocaleKeys.auth_verify_your_otp),
-                    style: theme.textTheme.titleLarge,
-                  ),
-                  const SizedBox(height: 5),
-                  VerifyOtpDesc(phoneNumber: phoneNumber),
-                  const SizedBox(height: 30),
-                  const CustomIllustrationWidget(
-                    svgImage: AppAssets.illustrationsOtpVerification,
-                  ),
-                  const SizedBox(height: 50),
-                  OtpField(controller: otpNotifier.otpController),
-                  const SizedBox(height: 50),
-                  VerifyOtpCheckButton(
-                    otpNotifier: otpNotifier,
-                    otpState: otpState,
-                  ),
-                  const SizedBox(height: 16),
-                  VerifyResendButton(
-                    otpNotifier: otpNotifier,
-                    otpState: otpState,
-                  ),
-                ],
-              ),
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(12),
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: kMobileWidth),
+            child: Column(
+              children: [
+                const SizedBox(height: 20),
+                Text(
+                  context.tr(LocaleKeys.auth_verify_your_otp),
+                  style: theme.textTheme.titleLarge,
+                ),
+                const SizedBox(height: 5),
+                VerifyOtpDesc(phoneNumber: phoneNumber),
+                const SizedBox(height: 30),
+                const CustomIllustrationWidget(
+                  svgImage: AppAssets.illustrationsOtpVerification,
+                ),
+                const SizedBox(height: 50),
+                OtpField(controller: otpNotifier.otpController),
+                const SizedBox(height: 50),
+                VerifyOtpCheckButton(
+                  otpNotifier: otpNotifier,
+                  otpState: otpState,
+                ),
+                const SizedBox(height: 16),
+                VerifyResendButton(
+                  otpNotifier: otpNotifier,
+                  otpState: otpState,
+                ),
+              ],
             ),
           ),
         ),

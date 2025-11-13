@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../core/utils/functions/format_phone_number.dart';
 import '../../../../../generated/locale_keys.g.dart';
 
 class VerifyOtpDesc extends StatelessWidget {
@@ -22,7 +23,7 @@ class VerifyOtpDesc extends StatelessWidget {
           ),
           // Force phone number to be LTR using Unicode embedding
           TextSpan(
-            text: "\u202A$phoneNumber\u202C\n",
+            text: "\u202A${formatPhoneNumber(phoneNumber)}\u202C\n",
             style: theme.textTheme.bodyMedium!.copyWith(
               color: theme.colorScheme.primary,
               fontWeight: FontWeight.w600,

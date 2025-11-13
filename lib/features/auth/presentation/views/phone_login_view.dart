@@ -5,7 +5,7 @@ import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:sawa/generated/locale_keys.g.dart';
 
 import '../../../../core/riverpod/theme_providers.dart';
-import '../widgets/phone_login_view_body.dart';
+import '../widgets/phone_login_widgets/phone_login_view_body.dart';
 
 class PhoneLoginView extends ConsumerWidget {
   const PhoneLoginView({super.key});
@@ -15,6 +15,7 @@ class PhoneLoginView extends ConsumerWidget {
     final theme = Theme.of(context);
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(
           context.tr(LocaleKeys.app_name),

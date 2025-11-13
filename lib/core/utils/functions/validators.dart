@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 
-import '../../generated/locale_keys.g.dart';
+import '../../../generated/locale_keys.g.dart';
 
 class Validators {
   static String? validateEmpty(String? value) {
@@ -58,39 +58,41 @@ class Validators {
     return null;
   }
 
+  //! Note: The following phone validator is commented out because
+  //! we will depend on phone_form_field package for phone validation.
   /// Validate phone number digits only.
   /// countryCode should be like "+20"
   /// minLength/maxLength indicate digits count AFTER country code.
   // validators.dart (تعديل validatePhone)
   /// Validate phone where expectedLength is number of digits AFTER removing leading 0.
-  static String? validatePhone(
-    String? rawValue, {
-    required String countryCode,
-    int expectedLength = 8,
-  }) {
-    if (rawValue == null || rawValue.isEmpty) {
-      return LocaleKeys.validators_phone_required.tr();
-    }
+  // static String? validatePhone(
+  //   String? rawValue, {
+  //   required String countryCode,
+  //   int expectedLength = 8,
+  // }) {
+  //   if (rawValue == null || rawValue.isEmpty) {
+  //     return LocaleKeys.validators_phone_required.tr();
+  //   }
 
-    final trimmed = rawValue.trim();
+  //   final trimmed = rawValue.trim();
 
-    // Must be digits only
-    if (!RegExp(r'^[0-9]+$').hasMatch(trimmed)) {
-      return LocaleKeys.validators_phone_invalid.tr();
-    }
+  //   // Must be digits only
+  //   if (!RegExp(r'^[0-9]+$').hasMatch(trimmed)) {
+  //     return LocaleKeys.validators_phone_invalid.tr();
+  //   }
 
-    // Normalize: if user typed leading zero remove it for length check
-    final normalized = trimmed.startsWith('0') ? trimmed.substring(1) : trimmed;
+  //   // Normalize: if user typed leading zero remove it for length check
+  //   final normalized = trimmed.startsWith('0') ? trimmed.substring(1) : trimmed;
 
-    if (normalized.length < expectedLength) {
-      return LocaleKeys.validators_phone_short.tr();
-    }
-    if (normalized.length > expectedLength) {
-      return LocaleKeys.validators_phone_long.tr();
-    }
+  //   if (normalized.length < expectedLength) {
+  //     return LocaleKeys.validators_phone_short.tr();
+  //   }
+  //   if (normalized.length > expectedLength) {
+  //     return LocaleKeys.validators_phone_long.tr();
+  //   }
 
-    return null; // valid
-  }
+  //   return null; // valid
+  // }
 
   static String? validateUrl(String? value) {
     if (value == null || value.isEmpty) return null; // Allow empty field

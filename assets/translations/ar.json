@@ -21,6 +21,7 @@
     "common_invite_friend" : "دعوة صديق",
     "common_help" : "مساعدة",
     "common_refresh" : "تحديث",
+    "common_optional" : "(اختياري)",
 
 
     "error_auth_invalid_credential": "البريد الإلكتروني أو كلمة المرور غير صحيحة. حاول مرة أخرى.",
@@ -115,7 +116,7 @@
     "auth_profile_updated_success": "تم تحديث الملف الشخصي بنجاح!",
     "auth_first_name_desc": "علي، جون، إلخ.",
     "auth_last_name_desc": "يوسف، مصطفي، إلخ.",
-    "auth_bio" : "نبذة عنك",
+    "auth_bio" : "نبذة عنك (اختياري)",
     "auth_phone_field_hint" : "أدخل رقم الهاتف بعد كود البلد",
     "auth_verifying_otp" : "جارٍ التحقق من رمز ...",
 

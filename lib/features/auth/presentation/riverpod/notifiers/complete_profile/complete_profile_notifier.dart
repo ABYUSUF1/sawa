@@ -8,93 +8,113 @@ import 'package:sawa/core/riverpod/auth/global_auth_provider.dart';
 import 'package:sawa/core/services/storage/bucket_names.dart';
 
 import '../../../../../../core/services/storage/storage_service.dart';
-import '../../../../../../core/utils/get_friendly_failure.dart';
+import '../../../../../../core/utils/functions/get_friendly_failure.dart';
 import '../../auth_providers.dart';
 import 'complete_profile_state.dart';
 
 class CompleteProfileNotifier extends StateNotifier<CompleteProfileState> {
   final Ref ref;
 
-  // form + controllers
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  // Controllers - now we can pre-fill from state.user
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController bioController = TextEditingController();
+  late final String phone;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   CompleteProfileNotifier(this.ref) : super(const CompleteProfileState()) {
-    // Load current user values directly from AsyncValue<UserEntity?>
-    final user = ref.read(globalAuthProvider).value;
-    if (user != null) {
-      firstNameController.text = user.firstName;
-      lastNameController.text = user.lastName;
-      bioController.text = user.bio;
-    }
+    _initializeFromUser();
   }
 
-  /// Set/replace picked image (UI only). Passing null will clear it.
+  void _initializeFromUser() {
+    // Initialize controllers from current user state
+    final user = ref.read(globalAuthProvider).value;
+    state = state.copyWith(updatedUser: user);
+    phone = state.updatedUser?.phoneNumber ?? '';
+    firstNameController.text = state.updatedUser?.firstName ?? '';
+    lastNameController.text = state.updatedUser?.lastName ?? '';
+    bioController.text = state.updatedUser?.bio ?? '';
+  }
+
+  /// Update form fields and rebuild UI reactively
+  void updateFirstName(String value) {
+    state = state.copyWith(
+      updatedUser: state.updatedUser?.copyWith(firstName: value),
+      error: null, // Clear error when user types
+    );
+  }
+
+  void updateLastName(String value) {
+    state = state.copyWith(
+      updatedUser: state.updatedUser?.copyWith(lastName: value),
+      error: null,
+    );
+  }
+
+  void updateBio(String value) {
+    state = state.copyWith(
+      updatedUser: state.updatedUser?.copyWith(bio: value),
+      error: null,
+    );
+  }
+
+  /// Set temporary picked image (UI only)
   void setPickedImage(File? file) {
     state = state.copyWith(pickedImageFile: file, error: null);
   }
 
   void removePickedImage() => setPickedImage(null);
 
-  /// Complete profile: validate, optionally upload image, update backend, update global auth
+  /// Complete profile - now much cleaner
   Future<void> completeProfile() async {
     if (formKey.currentState?.validate() != true) return;
 
-    // Get user directly from AsyncValue
-    final user = ref.read(globalAuthProvider).value;
-    if (user == null) {
-      state = state.copyWith(error: 'No authenticated user found');
-      return;
-    }
+    if (state.isLoading) return; // Prevent multiple submissions
 
-    state = state.copyWith(isLoading: true, error: null, success: false);
+    state = state.copyWith(isLoading: true, error: null);
 
     try {
       final repo = ref.read(authRepoProvider);
 
-      String? imageUrl;
-      final picked = state.pickedImageFile;
-      if (picked != null) {
+      String? imageUrl = state.updatedUser?.profileImage;
+      final pickedImage = state.pickedImageFile;
+
+      // Upload new image if one was picked
+      if (pickedImage != null) {
         final storageService = ref.read(supabaseStorageServiceProvider);
         imageUrl = await storageService.uploadImage(
           bucketName: BucketNames.profileImages,
-          file: picked,
-          userId: user.id,
+          file: pickedImage,
+          userId: state.updatedUser!.id,
         );
       }
 
-      // build updated user
-      final newUser = user.copyWith(
+      // Build updated user with current state
+      final updatedUser = state.updatedUser?.copyWith(
         firstName: firstNameController.text.trim(),
         lastName: lastNameController.text.trim(),
         bio: bioController.text.trim(),
-        profileImage: imageUrl ?? user.profileImage,
+        profileImage: imageUrl,
         updatedAt: DateTime.now(),
         isOnline: true,
       );
 
-      // update server
-      final updatedUser = await repo.updateProfile(newUser);
+      // Update server
+      final serverUser = await repo.updateProfile(updatedUser!);
 
-      // update global auth state
-      ref.read(globalAuthProvider.notifier).updateUser(updatedUser);
+      // Update global auth state
+      ref.read(globalAuthProvider.notifier).updateUser(serverUser);
 
-      // mark success and keep pickedImageFile cleared
+      // Update local state with server response
       state = state.copyWith(
         isLoading: false,
         success: true,
-        error: null,
-        pickedImageFile: null,
+        updatedUser: serverUser, // Use the user returned from server
+        pickedImageFile: null, // Clear temporary file
       );
     } catch (e) {
       final failure = getFriendlyFailure(e);
-      state = state.copyWith(
-        isLoading: false,
-        success: false,
-        error: failure.errMessage,
-      );
+      state = state.copyWith(isLoading: false, error: failure.errMessage);
     }
   }
 

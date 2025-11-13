@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CompleteProfileState {
 
- bool get isLoading; String? get error; bool get success; File? get pickedImageFile;
+ bool get isLoading; String? get error; bool get success; File? get pickedImageFile; UserEntity? get updatedUser;
 /// Create a copy of CompleteProfileState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $CompleteProfileStateCopyWith<CompleteProfileState> get copyWith => _$CompletePr
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CompleteProfileState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.error, error) || other.error == error)&&(identical(other.success, success) || other.success == success)&&(identical(other.pickedImageFile, pickedImageFile) || other.pickedImageFile == pickedImageFile));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CompleteProfileState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.error, error) || other.error == error)&&(identical(other.success, success) || other.success == success)&&(identical(other.pickedImageFile, pickedImageFile) || other.pickedImageFile == pickedImageFile)&&(identical(other.updatedUser, updatedUser) || other.updatedUser == updatedUser));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isLoading,error,success,pickedImageFile);
+int get hashCode => Object.hash(runtimeType,isLoading,error,success,pickedImageFile,updatedUser);
 
 @override
 String toString() {
-  return 'CompleteProfileState(isLoading: $isLoading, error: $error, success: $success, pickedImageFile: $pickedImageFile)';
+  return 'CompleteProfileState(isLoading: $isLoading, error: $error, success: $success, pickedImageFile: $pickedImageFile, updatedUser: $updatedUser)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $CompleteProfileStateCopyWith<$Res>  {
   factory $CompleteProfileStateCopyWith(CompleteProfileState value, $Res Function(CompleteProfileState) _then) = _$CompleteProfileStateCopyWithImpl;
 @useResult
 $Res call({
- bool isLoading, String? error, bool success, File? pickedImageFile
+ bool isLoading, String? error, bool success, File? pickedImageFile, UserEntity? updatedUser
 });
 
 
@@ -62,13 +62,14 @@ class _$CompleteProfileStateCopyWithImpl<$Res>
 
 /// Create a copy of CompleteProfileState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? isLoading = null,Object? error = freezed,Object? success = null,Object? pickedImageFile = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? isLoading = null,Object? error = freezed,Object? success = null,Object? pickedImageFile = freezed,Object? updatedUser = freezed,}) {
   return _then(_self.copyWith(
 isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
 as String?,success: null == success ? _self.success : success // ignore: cast_nullable_to_non_nullable
 as bool,pickedImageFile: freezed == pickedImageFile ? _self.pickedImageFile : pickedImageFile // ignore: cast_nullable_to_non_nullable
-as File?,
+as File?,updatedUser: freezed == updatedUser ? _self.updatedUser : updatedUser // ignore: cast_nullable_to_non_nullable
+as UserEntity?,
   ));
 }
 
@@ -150,10 +151,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isLoading,  String? error,  bool success,  File? pickedImageFile)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isLoading,  String? error,  bool success,  File? pickedImageFile,  UserEntity? updatedUser)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CompleteProfileState() when $default != null:
-return $default(_that.isLoading,_that.error,_that.success,_that.pickedImageFile);case _:
+return $default(_that.isLoading,_that.error,_that.success,_that.pickedImageFile,_that.updatedUser);case _:
   return orElse();
 
 }
@@ -171,10 +172,10 @@ return $default(_that.isLoading,_that.error,_that.success,_that.pickedImageFile)
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isLoading,  String? error,  bool success,  File? pickedImageFile)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isLoading,  String? error,  bool success,  File? pickedImageFile,  UserEntity? updatedUser)  $default,) {final _that = this;
 switch (_that) {
 case _CompleteProfileState():
-return $default(_that.isLoading,_that.error,_that.success,_that.pickedImageFile);}
+return $default(_that.isLoading,_that.error,_that.success,_that.pickedImageFile,_that.updatedUser);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -188,10 +189,10 @@ return $default(_that.isLoading,_that.error,_that.success,_that.pickedImageFile)
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isLoading,  String? error,  bool success,  File? pickedImageFile)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isLoading,  String? error,  bool success,  File? pickedImageFile,  UserEntity? updatedUser)?  $default,) {final _that = this;
 switch (_that) {
 case _CompleteProfileState() when $default != null:
-return $default(_that.isLoading,_that.error,_that.success,_that.pickedImageFile);case _:
+return $default(_that.isLoading,_that.error,_that.success,_that.pickedImageFile,_that.updatedUser);case _:
   return null;
 
 }
@@ -203,13 +204,14 @@ return $default(_that.isLoading,_that.error,_that.success,_that.pickedImageFile)
 
 
 class _CompleteProfileState implements CompleteProfileState {
-  const _CompleteProfileState({this.isLoading = false, this.error, this.success = false, this.pickedImageFile});
+  const _CompleteProfileState({this.isLoading = false, this.error, this.success = false, this.pickedImageFile, this.updatedUser});
   
 
 @override@JsonKey() final  bool isLoading;
 @override final  String? error;
 @override@JsonKey() final  bool success;
 @override final  File? pickedImageFile;
+@override final  UserEntity? updatedUser;
 
 /// Create a copy of CompleteProfileState
 /// with the given fields replaced by the non-null parameter values.
@@ -221,16 +223,16 @@ _$CompleteProfileStateCopyWith<_CompleteProfileState> get copyWith => __$Complet
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CompleteProfileState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.error, error) || other.error == error)&&(identical(other.success, success) || other.success == success)&&(identical(other.pickedImageFile, pickedImageFile) || other.pickedImageFile == pickedImageFile));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CompleteProfileState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.error, error) || other.error == error)&&(identical(other.success, success) || other.success == success)&&(identical(other.pickedImageFile, pickedImageFile) || other.pickedImageFile == pickedImageFile)&&(identical(other.updatedUser, updatedUser) || other.updatedUser == updatedUser));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isLoading,error,success,pickedImageFile);
+int get hashCode => Object.hash(runtimeType,isLoading,error,success,pickedImageFile,updatedUser);
 
 @override
 String toString() {
-  return 'CompleteProfileState(isLoading: $isLoading, error: $error, success: $success, pickedImageFile: $pickedImageFile)';
+  return 'CompleteProfileState(isLoading: $isLoading, error: $error, success: $success, pickedImageFile: $pickedImageFile, updatedUser: $updatedUser)';
 }
 
 
@@ -241,7 +243,7 @@ abstract mixin class _$CompleteProfileStateCopyWith<$Res> implements $CompletePr
   factory _$CompleteProfileStateCopyWith(_CompleteProfileState value, $Res Function(_CompleteProfileState) _then) = __$CompleteProfileStateCopyWithImpl;
 @override @useResult
 $Res call({
- bool isLoading, String? error, bool success, File? pickedImageFile
+ bool isLoading, String? error, bool success, File? pickedImageFile, UserEntity? updatedUser
 });
 
 
@@ -258,13 +260,14 @@ class __$CompleteProfileStateCopyWithImpl<$Res>
 
 /// Create a copy of CompleteProfileState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? isLoading = null,Object? error = freezed,Object? success = null,Object? pickedImageFile = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? isLoading = null,Object? error = freezed,Object? success = null,Object? pickedImageFile = freezed,Object? updatedUser = freezed,}) {
   return _then(_CompleteProfileState(
 isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
 as String?,success: null == success ? _self.success : success // ignore: cast_nullable_to_non_nullable
 as bool,pickedImageFile: freezed == pickedImageFile ? _self.pickedImageFile : pickedImageFile // ignore: cast_nullable_to_non_nullable
-as File?,
+as File?,updatedUser: freezed == updatedUser ? _self.updatedUser : updatedUser // ignore: cast_nullable_to_non_nullable
+as UserEntity?,
   ));
 }
 

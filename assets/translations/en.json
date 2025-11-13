@@ -21,6 +21,7 @@
     "common_invite_friend" : "Invite a friend",
     "common_help" : "Help",
     "common_refresh" : "Refresh",
+    "common_optional" : "(Optional)",
 
 
     "error_auth_invalid_credential": "The email or password is incorrect or not found. Please try again.",
@@ -114,7 +115,7 @@
     "auth_profile_updated_success": "Profile updated successfully!",
     "auth_first_name_desc": "Ali, John, etc.",
     "auth_last_name_desc": "Khan, Doe, etc.",
-    "auth_bio": "Bio",
+    "auth_bio": "Bio (Optional)",
     "auth_phone_field_hint" : "Enter your phone number after the country code",
     "auth_verifying_otp" : "Verifying OTP...",
     "chat_archived": "Archived",

@@ -1,26 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:sawa/core/widgets/text_field_widgets/phone_field/phone_field_controller.dart';
 
-import '../../../../../../core/utils/get_friendly_failure.dart';
-import '../../auth_providers.dart';
+import '../../../../../../core/utils/functions/get_friendly_failure.dart';
+import '../../../../domain/repo/auth_repo.dart';
 import 'phone_login_state.dart';
 
 class PhoneLoginNotifier extends StateNotifier<PhoneLoginState> {
-  final Ref ref;
-  final PhoneFieldController phoneController = PhoneFieldController();
+  final AuthRepo repo;
+  final TextEditingController phoneController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  PhoneLoginNotifier(this.ref) : super(const PhoneLoginState.initial());
+  PhoneLoginNotifier(this.repo) : super(const PhoneLoginState.initial());
 
   Future<void> signInWithPhoneNumber() async {
-    if (!formKey.currentState!.validate()) return;
+    if (formKey.currentState?.validate() != true) return;
 
     state = const PhoneLoginState.loading();
     try {
-      final repo = ref.read(authRepoProvider);
-      await repo.signInWithPhoneNumber(phoneController.e164);
+      await repo.signInWithPhoneNumber(phoneController.text);
 
       state = const PhoneLoginState.success();
     } catch (e) {

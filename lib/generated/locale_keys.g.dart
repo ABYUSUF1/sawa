@@ -24,6 +24,7 @@ abstract class  LocaleKeys {
   static const common_invite_friend = 'common_invite_friend';
   static const common_help = 'common_help';
   static const common_refresh = 'common_refresh';
+  static const common_optional = 'common_optional';
   static const error_auth_invalid_credential = 'error_auth_invalid_credential';
   static const error_auth_email_already_in_use = 'error_auth_email_already_in_use';
   static const error_auth_invalid_email = 'error_auth_invalid_email';

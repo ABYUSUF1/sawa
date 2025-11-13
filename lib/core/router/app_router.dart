@@ -17,7 +17,7 @@ final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 
 final GoRouter appRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: AppRoutePaths.chats,
+  initialLocation: AppRoutePaths.splash,
   routes: [
     GoRoute(
       name: AppRouteNames.splash,

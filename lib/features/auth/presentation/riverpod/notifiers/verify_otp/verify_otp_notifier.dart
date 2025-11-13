@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:riverpod/riverpod.dart';
 
-import '../../../../../../core/utils/get_friendly_failure.dart';
+import '../../../../../../core/utils/functions/get_friendly_failure.dart';
 import '../../auth_providers.dart';
 import 'verify_otp_state.dart';
 

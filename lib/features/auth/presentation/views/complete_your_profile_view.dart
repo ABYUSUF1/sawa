@@ -35,7 +35,6 @@ class CompleteYourProfileView extends ConsumerWidget {
     });
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       appBar: AppBar(),
       body: CompleteYourProfileViewBody(
         cPNotifier: cPNotifier,

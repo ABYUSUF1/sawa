@@ -21,7 +21,7 @@ final authRepoProvider = Provider<AuthRepo>(
 
 final phoneLoginNotifierProvider =
     StateNotifierProvider<PhoneLoginNotifier, PhoneLoginState>(
-      (ref) => PhoneLoginNotifier(ref),
+      (ref) => PhoneLoginNotifier(ref.watch(authRepoProvider)),
     );
 
 final verifyOtpNotifierProvider = StateNotifierProvider.autoDispose
