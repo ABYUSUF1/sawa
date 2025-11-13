@@ -46,16 +46,19 @@ class MainLayout extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: theme.colorScheme.surfaceContainerHigh,
-      body: ResponsiveLayout(
-        mobileChild: MainLayoutMobileView(
-          navigationShell: navigationShell,
-          theme: theme,
-          destinations: destinations,
-        ),
-        tabletChild: MainLayoutTabletView(
-          navigationShell: navigationShell,
-          theme: theme,
-          destinations: destinations,
+      body: SafeArea(
+        top: false,
+        child: ResponsiveLayout(
+          mobileChild: MainLayoutMobileView(
+            navigationShell: navigationShell,
+            theme: theme,
+            destinations: destinations,
+          ),
+          tabletChild: MainLayoutTabletView(
+            navigationShell: navigationShell,
+            theme: theme,
+            destinations: destinations,
+          ),
         ),
       ),
     );
