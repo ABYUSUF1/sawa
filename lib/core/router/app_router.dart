@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sawa/features/chats/presentation/views/chats_view.dart';
 import 'package:sawa/features/contacts/presentation/views/contacts_view.dart';
+import 'package:sawa/features/profile/presentation/views/profile_view.dart';
+import 'package:sawa/features/settings/presentation/view/settings_view.dart';
 import 'package:sawa/features/splash/splash_view.dart';
 import 'package:sawa/features/statuses/presentation/views/statuses_view.dart';
 
@@ -9,6 +11,7 @@ import '../../features/auth/presentation/views/complete_your_profile_view.dart';
 import '../../features/auth/presentation/views/phone_login_view.dart';
 import '../../features/auth/presentation/views/verify_otp_view.dart';
 import '../../features/calls/presentation/views/calls_view.dart';
+import '../../features/settings/presentation/view/appearance_view.dart';
 import '../layout/main_layout/main_layout.dart';
 import 'app_route_name.dart';
 import 'app_route_path.dart';
@@ -18,6 +21,7 @@ final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 final GoRouter appRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: AppRoutePaths.splash,
+  // debugLogDiagnostics: true,
   routes: [
     GoRoute(
       name: AppRouteNames.splash,
@@ -92,6 +96,23 @@ final GoRouter appRouter = GoRouter(
       name: AppRouteNames.contacts,
       path: AppRoutePaths.contacts,
       builder: (context, state) => const ContactsView(),
+    ),
+    GoRoute(
+      name: AppRouteNames.settings,
+      path: AppRoutePaths.settings,
+      builder: (context, state) => const SettingsView(),
+      routes: [
+        GoRoute(
+          name: AppRouteNames.appearance,
+          path: AppRoutePaths.appearance,
+          builder: (context, state) => const AppearanceView(),
+        ),
+        GoRoute(
+          name: AppRouteNames.profile,
+          path: AppRoutePaths.profile,
+          builder: (context, state) => const ProfileView(),
+        ),
+      ],
     ),
   ],
 );

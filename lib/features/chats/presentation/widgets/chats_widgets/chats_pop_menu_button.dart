@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
+import 'package:sawa/core/router/app_route_name.dart';
 
 import '../../../../../generated/locale_keys.g.dart'; // optional if you use custom icons
 
@@ -36,6 +38,9 @@ class ChatsPopMenuButton extends StatelessWidget {
         ),
         PopupMenuItem(
           value: 'Settings',
+          onTap: () {
+            context.pushNamed(AppRouteNames.settings);
+          },
           child: Row(
             children: [
               const Icon(

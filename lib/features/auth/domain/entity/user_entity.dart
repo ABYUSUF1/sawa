@@ -5,7 +5,7 @@ class UserEntity {
   final String phoneNumber;
   final String firstName;
   final String lastName;
-  final String bio;
+  final String? bio;
   final String? profileImage;
   final DateTime createdAt;
   final DateTime? updatedAt;
@@ -27,6 +27,10 @@ class UserEntity {
 
   bool get isProfileIncomplete {
     return firstName.trim().isEmpty || lastName.trim().isEmpty;
+  }
+
+  String get fullName {
+    return '$firstName $lastName'.trim();
   }
 
   // Copy with

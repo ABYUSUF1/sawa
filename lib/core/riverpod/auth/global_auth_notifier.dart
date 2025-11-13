@@ -13,26 +13,20 @@ class GlobalAuthNotifier extends AsyncNotifier<UserEntity?> {
 
   Future<UserEntity?> checkAuthStatus() async {
     try {
-      print('🔹 Checking auth status...');
       final userId = _repo.myUserId();
-      print('🔹 myUserId() returned: $userId');
 
       if (userId == null || userId.isEmpty) {
-        print('⚠️ No user ID found — unauthenticated');
         return null;
       }
 
       final currentUser = await _repo.getUser(userId);
-      print('🔹 currentUser: $currentUser');
 
       if (currentUser == null) {
-        print('⚠️ No user document found — unauthenticated');
         return null;
       }
 
       return currentUser;
-    } catch (e, st) {
-      print('❌ checkAuthStatus failed: $e\n$st');
+    } catch (e) {
       return null;
     }
   }
