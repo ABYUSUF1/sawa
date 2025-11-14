@@ -26,7 +26,7 @@ abstract class UserModel with _$UserModel {
 
   factory UserModel.fromSupabaseUser(User user) => UserModel(
     id: user.id,
-    phoneNumber: user.phone ?? '',
+    phoneNumber: "+${user.phone}",
     firstName: user.userMetadata?['first_name'] ?? '',
     lastName: user.userMetadata?['last_name'] ?? '',
     bio: user.userMetadata?['bio'],

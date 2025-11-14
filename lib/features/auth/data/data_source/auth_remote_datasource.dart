@@ -26,7 +26,6 @@ class AuthRemoteDatasource {
     );
 
     final supaUser = response.user!;
-    print("phone number verified: ${supaUser.phone}");
     return UserModel.fromSupabaseUser(supaUser);
   }
 
