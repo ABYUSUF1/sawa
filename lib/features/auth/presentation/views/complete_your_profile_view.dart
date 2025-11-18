@@ -34,7 +34,10 @@ class CompleteYourProfileView extends ConsumerWidget {
       }
     });
 
+    final theme = Theme.of(context);
+
     return Scaffold(
+      backgroundColor: theme.colorScheme.surface,
       appBar: AppBar(),
       body: CompleteYourProfileViewBody(
         cPNotifier: cPNotifier,

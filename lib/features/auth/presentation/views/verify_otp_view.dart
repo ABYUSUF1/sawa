@@ -52,8 +52,11 @@ class VerifyOtpView extends ConsumerWidget {
       }
     });
 
+    final theme = Theme.of(context);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      backgroundColor: theme.colorScheme.surface,
       appBar: AppBar(),
       body: VerifyOtpViewBody(
         otpNotifier: otpNotifier,

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'core/objectbox/object_box.dart';
+import 'core/objectbox/object_box_provider.dart';
 import 'core/riverpod/theme_providers.dart';
 import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
@@ -20,8 +22,11 @@ void main() async {
 
   await EasyLocalization.ensureInitialized();
 
+  final objectBox = await ObjectBox.getInstance();
+
   runApp(
     ProviderScope(
+      overrides: [objectBoxProvider.overrideWithValue(objectBox)],
       child: EasyLocalization(
         supportedLocales: const [Locale('en'), Locale('ar')],
         path: 'assets/translations',

@@ -119,6 +119,8 @@
     "auth_bio" : "نبذة عنك (اختياري)",
     "auth_phone_field_hint" : "أدخل رقم الهاتف بعد كود البلد",
     "auth_verifying_otp" : "جارٍ التحقق من رمز ...",
+    "auth_back_to_login" : "العودة لتسجيل الدخول",
+
 
     "chat_archived": "المؤرشفة",
     "chat_filters_all": "الكل",

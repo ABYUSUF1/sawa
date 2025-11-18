@@ -8,10 +8,12 @@ class GlobalAuthNotifier extends AsyncNotifier<UserEntity?> {
 
   @override
   Future<UserEntity?> build() async {
-    return await checkAuthStatus();
+    return await getCurrentUser();
   }
 
-  Future<UserEntity?> checkAuthStatus() async {
+  bool isUserSignedIn() => _repo.isSignedIn();
+
+  Future<UserEntity?> getCurrentUser() async {
     try {
       final userId = _repo.myUserId();
 

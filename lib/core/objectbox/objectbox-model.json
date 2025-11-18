@@ -1,0 +1,126 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:563605376438197169",
+      "lastPropertyId": "7:525323331091758951",
+      "name": "ContactObx",
+      "properties": [
+        {
+          "id": "1:8415538626314765729",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:8236655826848095961",
+          "name": "contactName",
+          "type": 9
+        },
+        {
+          "id": "3:3706746473609637172",
+          "name": "phoneNumber",
+          "type": 9
+        },
+        {
+          "id": "4:1361345023219983340",
+          "name": "isAppUser",
+          "type": 1
+        },
+        {
+          "id": "5:6605622438762002214",
+          "name": "userId",
+          "indexId": "1:8306211457572838139",
+          "type": 11,
+          "flags": 520,
+          "relationTarget": "UserObx"
+        },
+        {
+          "id": "7:525323331091758951",
+          "name": "lastCheckedAt",
+          "type": 10
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:6502526937234851100",
+      "lastPropertyId": "11:6074419131432428288",
+      "name": "UserObx",
+      "properties": [
+        {
+          "id": "1:4358739026537156550",
+          "name": "obxId",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:1408384272695055967",
+          "name": "serverId",
+          "type": 9
+        },
+        {
+          "id": "3:6622626396874816224",
+          "name": "phoneNumber",
+          "type": 9
+        },
+        {
+          "id": "4:7569842160468141552",
+          "name": "firstName",
+          "type": 9
+        },
+        {
+          "id": "5:7108519450993566909",
+          "name": "lastName",
+          "type": 9
+        },
+        {
+          "id": "6:4605761413037159493",
+          "name": "profileImage",
+          "type": 9
+        },
+        {
+          "id": "7:6466306456443848117",
+          "name": "bio",
+          "type": 9
+        },
+        {
+          "id": "8:5016076145134361201",
+          "name": "createdAt",
+          "type": 10
+        },
+        {
+          "id": "9:6824737488994072746",
+          "name": "updatedAt",
+          "type": 10
+        },
+        {
+          "id": "10:6312980072067807581",
+          "name": "lastSeenAt",
+          "type": 10
+        },
+        {
+          "id": "11:6074419131432428288",
+          "name": "isOnline",
+          "type": 1
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "2:6502526937234851100",
+  "lastIndexId": "1:8306211457572838139",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [
+    3979462161564861016
+  ],
+  "retiredRelationUids": [],
+  "version": 1
+}

@@ -2,12 +2,13 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../domain/entity/user_entity.dart';
+import 'user_obx.dart';
 
 part 'user_model.freezed.dart';
 part 'user_model.g.dart';
 
 @freezed
-abstract class UserModel with _$UserModel {
+sealed class UserModel with _$UserModel {
   const factory UserModel({
     required String id,
     required String phoneNumber,
@@ -55,4 +56,21 @@ extension UserModelX on UserModel {
     lastSeenAt: lastSeenAt,
     isOnline: isOnline,
   );
+}
+
+extension UserModelMapper on UserModel {
+  UserObx toObx() {
+    return UserObx(
+      serverId: id,
+      phoneNumber: phoneNumber,
+      firstName: firstName,
+      lastName: lastName,
+      profileImage: profileImage,
+      bio: bio,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+      lastSeenAt: lastSeenAt,
+      isOnline: isOnline,
+    );
+  }
 }

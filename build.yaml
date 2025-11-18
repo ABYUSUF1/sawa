@@ -5,5 +5,4 @@ targets:
         options:
           explicit_to_json: true
           field_rename: snake
-
-# snake mean snake_case not camelCase
+          # snake means snake_case instead of camelCases

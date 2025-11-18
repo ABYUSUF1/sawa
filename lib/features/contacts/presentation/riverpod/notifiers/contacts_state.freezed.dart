@@ -55,12 +55,11 @@ extension ContactsStatePatterns on ContactsState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( _Loading value)?  loading,TResult Function( _Success value)?  success,TResult Function( _Error value)?  error,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Loading value)?  loading,TResult Function( ContactsSuccess value)?  success,TResult Function( _Error value)?  error,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial(_that);case _Loading() when loading != null:
-return loading(_that);case _Success() when success != null:
+case _Loading() when loading != null:
+return loading(_that);case ContactsSuccess() when success != null:
 return success(_that);case _Error() when error != null:
 return error(_that);case _:
   return orElse();
@@ -80,12 +79,11 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( _Loading value)  loading,required TResult Function( _Success value)  success,required TResult Function( _Error value)  error,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Loading value)  loading,required TResult Function( ContactsSuccess value)  success,required TResult Function( _Error value)  error,}){
 final _that = this;
 switch (_that) {
-case _Initial():
-return initial(_that);case _Loading():
-return loading(_that);case _Success():
+case _Loading():
+return loading(_that);case ContactsSuccess():
 return success(_that);case _Error():
 return error(_that);}
 }
@@ -101,12 +99,11 @@ return error(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( _Loading value)?  loading,TResult? Function( _Success value)?  success,TResult? Function( _Error value)?  error,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Loading value)?  loading,TResult? Function( ContactsSuccess value)?  success,TResult? Function( _Error value)?  error,}){
 final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial(_that);case _Loading() when loading != null:
-return loading(_that);case _Success() when success != null:
+case _Loading() when loading != null:
+return loading(_that);case ContactsSuccess() when success != null:
 return success(_that);case _Error() when error != null:
 return error(_that);case _:
   return null;
@@ -125,13 +122,12 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<UserEntity> registeredUsers,  List<UserEntity> unRegisteredUsers)?  success,TResult Function( String errMessage)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  loading,TResult Function( List<ContactEntity> appUserContacts,  String searchQuery,  List<ContactEntity> filteredAppUsers,  List<ContactEntity> filteredNonAppUsers)?  success,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial();case _Loading() when loading != null:
-return loading();case _Success() when success != null:
-return success(_that.registeredUsers,_that.unRegisteredUsers);case _Error() when error != null:
-return error(_that.errMessage);case _:
+case _Loading() when loading != null:
+return loading();case ContactsSuccess() when success != null:
+return success(_that.appUserContacts,_that.searchQuery,_that.filteredAppUsers,_that.filteredNonAppUsers);case _Error() when error != null:
+return error(_that.message);case _:
   return orElse();
 
 }
@@ -149,13 +145,12 @@ return error(_that.errMessage);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<UserEntity> registeredUsers,  List<UserEntity> unRegisteredUsers)  success,required TResult Function( String errMessage)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  loading,required TResult Function( List<ContactEntity> appUserContacts,  String searchQuery,  List<ContactEntity> filteredAppUsers,  List<ContactEntity> filteredNonAppUsers)  success,required TResult Function( String message)  error,}) {final _that = this;
 switch (_that) {
-case _Initial():
-return initial();case _Loading():
-return loading();case _Success():
-return success(_that.registeredUsers,_that.unRegisteredUsers);case _Error():
-return error(_that.errMessage);}
+case _Loading():
+return loading();case ContactsSuccess():
+return success(_that.appUserContacts,_that.searchQuery,_that.filteredAppUsers,_that.filteredNonAppUsers);case _Error():
+return error(_that.message);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -169,51 +164,18 @@ return error(_that.errMessage);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<UserEntity> registeredUsers,  List<UserEntity> unRegisteredUsers)?  success,TResult? Function( String errMessage)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  loading,TResult? Function( List<ContactEntity> appUserContacts,  String searchQuery,  List<ContactEntity> filteredAppUsers,  List<ContactEntity> filteredNonAppUsers)?  success,TResult? Function( String message)?  error,}) {final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial();case _Loading() when loading != null:
-return loading();case _Success() when success != null:
-return success(_that.registeredUsers,_that.unRegisteredUsers);case _Error() when error != null:
-return error(_that.errMessage);case _:
+case _Loading() when loading != null:
+return loading();case ContactsSuccess() when success != null:
+return success(_that.appUserContacts,_that.searchQuery,_that.filteredAppUsers,_that.filteredNonAppUsers);case _Error() when error != null:
+return error(_that.message);case _:
   return null;
 
 }
 }
 
 }
-
-/// @nodoc
-
-
-class _Initial implements ContactsState {
-  const _Initial();
-  
-
-
-
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Initial);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString() {
-  return 'ContactsState.initial()';
-}
-
-
-}
-
-
-
 
 /// @nodoc
 
@@ -250,22 +212,30 @@ String toString() {
 /// @nodoc
 
 
-class _Success implements ContactsState {
-  const _Success({required final  List<UserEntity> registeredUsers, required final  List<UserEntity> unRegisteredUsers}): _registeredUsers = registeredUsers,_unRegisteredUsers = unRegisteredUsers;
+class ContactsSuccess implements ContactsState {
+  const ContactsSuccess({required final  List<ContactEntity> appUserContacts, this.searchQuery = '', final  List<ContactEntity> filteredAppUsers = const [], final  List<ContactEntity> filteredNonAppUsers = const []}): _appUserContacts = appUserContacts,_filteredAppUsers = filteredAppUsers,_filteredNonAppUsers = filteredNonAppUsers;
   
 
- final  List<UserEntity> _registeredUsers;
- List<UserEntity> get registeredUsers {
-  if (_registeredUsers is EqualUnmodifiableListView) return _registeredUsers;
+ final  List<ContactEntity> _appUserContacts;
+ List<ContactEntity> get appUserContacts {
+  if (_appUserContacts is EqualUnmodifiableListView) return _appUserContacts;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_registeredUsers);
+  return EqualUnmodifiableListView(_appUserContacts);
 }
 
- final  List<UserEntity> _unRegisteredUsers;
- List<UserEntity> get unRegisteredUsers {
-  if (_unRegisteredUsers is EqualUnmodifiableListView) return _unRegisteredUsers;
+@JsonKey() final  String searchQuery;
+ final  List<ContactEntity> _filteredAppUsers;
+@JsonKey() List<ContactEntity> get filteredAppUsers {
+  if (_filteredAppUsers is EqualUnmodifiableListView) return _filteredAppUsers;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_unRegisteredUsers);
+  return EqualUnmodifiableListView(_filteredAppUsers);
+}
+
+ final  List<ContactEntity> _filteredNonAppUsers;
+@JsonKey() List<ContactEntity> get filteredNonAppUsers {
+  if (_filteredNonAppUsers is EqualUnmodifiableListView) return _filteredNonAppUsers;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_filteredNonAppUsers);
 }
 
 
@@ -273,33 +243,33 @@ class _Success implements ContactsState {
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$SuccessCopyWith<_Success> get copyWith => __$SuccessCopyWithImpl<_Success>(this, _$identity);
+$ContactsSuccessCopyWith<ContactsSuccess> get copyWith => _$ContactsSuccessCopyWithImpl<ContactsSuccess>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Success&&const DeepCollectionEquality().equals(other._registeredUsers, _registeredUsers)&&const DeepCollectionEquality().equals(other._unRegisteredUsers, _unRegisteredUsers));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ContactsSuccess&&const DeepCollectionEquality().equals(other._appUserContacts, _appUserContacts)&&(identical(other.searchQuery, searchQuery) || other.searchQuery == searchQuery)&&const DeepCollectionEquality().equals(other._filteredAppUsers, _filteredAppUsers)&&const DeepCollectionEquality().equals(other._filteredNonAppUsers, _filteredNonAppUsers));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_registeredUsers),const DeepCollectionEquality().hash(_unRegisteredUsers));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_appUserContacts),searchQuery,const DeepCollectionEquality().hash(_filteredAppUsers),const DeepCollectionEquality().hash(_filteredNonAppUsers));
 
 @override
 String toString() {
-  return 'ContactsState.success(registeredUsers: $registeredUsers, unRegisteredUsers: $unRegisteredUsers)';
+  return 'ContactsState.success(appUserContacts: $appUserContacts, searchQuery: $searchQuery, filteredAppUsers: $filteredAppUsers, filteredNonAppUsers: $filteredNonAppUsers)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$SuccessCopyWith<$Res> implements $ContactsStateCopyWith<$Res> {
-  factory _$SuccessCopyWith(_Success value, $Res Function(_Success) _then) = __$SuccessCopyWithImpl;
+abstract mixin class $ContactsSuccessCopyWith<$Res> implements $ContactsStateCopyWith<$Res> {
+  factory $ContactsSuccessCopyWith(ContactsSuccess value, $Res Function(ContactsSuccess) _then) = _$ContactsSuccessCopyWithImpl;
 @useResult
 $Res call({
- List<UserEntity> registeredUsers, List<UserEntity> unRegisteredUsers
+ List<ContactEntity> appUserContacts, String searchQuery, List<ContactEntity> filteredAppUsers, List<ContactEntity> filteredNonAppUsers
 });
 
 
@@ -307,20 +277,22 @@ $Res call({
 
 }
 /// @nodoc
-class __$SuccessCopyWithImpl<$Res>
-    implements _$SuccessCopyWith<$Res> {
-  __$SuccessCopyWithImpl(this._self, this._then);
+class _$ContactsSuccessCopyWithImpl<$Res>
+    implements $ContactsSuccessCopyWith<$Res> {
+  _$ContactsSuccessCopyWithImpl(this._self, this._then);
 
-  final _Success _self;
-  final $Res Function(_Success) _then;
+  final ContactsSuccess _self;
+  final $Res Function(ContactsSuccess) _then;
 
 /// Create a copy of ContactsState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? registeredUsers = null,Object? unRegisteredUsers = null,}) {
-  return _then(_Success(
-registeredUsers: null == registeredUsers ? _self._registeredUsers : registeredUsers // ignore: cast_nullable_to_non_nullable
-as List<UserEntity>,unRegisteredUsers: null == unRegisteredUsers ? _self._unRegisteredUsers : unRegisteredUsers // ignore: cast_nullable_to_non_nullable
-as List<UserEntity>,
+@pragma('vm:prefer-inline') $Res call({Object? appUserContacts = null,Object? searchQuery = null,Object? filteredAppUsers = null,Object? filteredNonAppUsers = null,}) {
+  return _then(ContactsSuccess(
+appUserContacts: null == appUserContacts ? _self._appUserContacts : appUserContacts // ignore: cast_nullable_to_non_nullable
+as List<ContactEntity>,searchQuery: null == searchQuery ? _self.searchQuery : searchQuery // ignore: cast_nullable_to_non_nullable
+as String,filteredAppUsers: null == filteredAppUsers ? _self._filteredAppUsers : filteredAppUsers // ignore: cast_nullable_to_non_nullable
+as List<ContactEntity>,filteredNonAppUsers: null == filteredNonAppUsers ? _self._filteredNonAppUsers : filteredNonAppUsers // ignore: cast_nullable_to_non_nullable
+as List<ContactEntity>,
   ));
 }
 
@@ -331,10 +303,10 @@ as List<UserEntity>,
 
 
 class _Error implements ContactsState {
-  const _Error(this.errMessage);
+  const _Error(this.message);
   
 
- final  String errMessage;
+ final  String message;
 
 /// Create a copy of ContactsState
 /// with the given fields replaced by the non-null parameter values.
@@ -346,16 +318,16 @@ _$ErrorCopyWith<_Error> get copyWith => __$ErrorCopyWithImpl<_Error>(this, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Error&&(identical(other.errMessage, errMessage) || other.errMessage == errMessage));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Error&&(identical(other.message, message) || other.message == message));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,errMessage);
+int get hashCode => Object.hash(runtimeType,message);
 
 @override
 String toString() {
-  return 'ContactsState.error(errMessage: $errMessage)';
+  return 'ContactsState.error(message: $message)';
 }
 
 
@@ -366,7 +338,7 @@ abstract mixin class _$ErrorCopyWith<$Res> implements $ContactsStateCopyWith<$Re
   factory _$ErrorCopyWith(_Error value, $Res Function(_Error) _then) = __$ErrorCopyWithImpl;
 @useResult
 $Res call({
- String errMessage
+ String message
 });
 
 
@@ -383,9 +355,9 @@ class __$ErrorCopyWithImpl<$Res>
 
 /// Create a copy of ContactsState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? errMessage = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
   return _then(_Error(
-null == errMessage ? _self.errMessage : errMessage // ignore: cast_nullable_to_non_nullable
+null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }

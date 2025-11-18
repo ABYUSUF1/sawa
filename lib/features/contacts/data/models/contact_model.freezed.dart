@@ -130,10 +130,7 @@ return $default(_that);case _:
 final _that = this;
 switch (_that) {
 case _ContactModel():
-return $default(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -192,10 +189,7 @@ return $default(_that.contactName,_that.phoneNumber,_that.isAppUser,_that.user);
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String contactName,  String phoneNumber,  bool isAppUser,  UserModel? user)  $default,) {final _that = this;
 switch (_that) {
 case _ContactModel():
-return $default(_that.contactName,_that.phoneNumber,_that.isAppUser,_that.user);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that.contactName,_that.phoneNumber,_that.isAppUser,_that.user);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///

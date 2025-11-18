@@ -113,6 +113,7 @@ abstract class  LocaleKeys {
   static const auth_bio = 'auth_bio';
   static const auth_phone_field_hint = 'auth_phone_field_hint';
   static const auth_verifying_otp = 'auth_verifying_otp';
+  static const auth_back_to_login = 'auth_back_to_login';
   static const chat_archived = 'chat_archived';
   static const chat_filters_all = 'chat_filters_all';
   static const chat_filters_unread = 'chat_filters_unread';

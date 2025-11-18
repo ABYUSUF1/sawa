@@ -118,6 +118,8 @@
     "auth_bio": "Bio (Optional)",
     "auth_phone_field_hint" : "Enter your phone number after the country code",
     "auth_verifying_otp" : "Verifying OTP...",
+    "auth_back_to_login" : "Back to Login",
+
     "chat_archived": "Archived",
     "chat_filters_unread": "Unread",
     "chat_filters_all": "All",

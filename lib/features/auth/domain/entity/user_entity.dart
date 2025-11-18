@@ -33,6 +33,8 @@ class UserEntity {
     return '$firstName $lastName'.trim();
   }
 
+  bool get isBioEmpty => bio?.trim().isEmpty ?? true;
+
   // Copy with
   UserEntity copyWith({
     String? phoneNumber,

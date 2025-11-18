@@ -9,7 +9,7 @@ class AppTheme {
       onPrimary: Colors.white,
       brightness: Brightness.light,
       // onSurface: Colors.black,
-      onSurfaceVariant: Colors.grey,
+      onSurfaceVariant: Colors.grey[600],
       onError: const Color(0xFFEA2A33),
       surfaceContainerHigh: const Color(0xFFFFFFFF),
       surfaceContainerLow: const Color(0xFFECF1F7),
@@ -19,7 +19,7 @@ class AppTheme {
     return ThemeData(
       useMaterial3: true,
       colorScheme: colorScheme,
-      // scaffoldBackgroundColor: const Color(0xffEDF2FB),
+      scaffoldBackgroundColor: const Color(0xffEDF2FB),
       appBarTheme: AppBarTheme(
         backgroundColor: Colors.transparent,
         foregroundColor: colorScheme.onSurface,

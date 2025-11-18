@@ -15,6 +15,7 @@ class PhoneLoginView extends ConsumerWidget {
     final theme = Theme.of(context);
 
     return Scaffold(
+      backgroundColor: theme.colorScheme.surface,
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(

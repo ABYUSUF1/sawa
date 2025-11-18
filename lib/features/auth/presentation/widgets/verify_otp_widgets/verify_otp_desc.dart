@@ -23,7 +23,7 @@ class VerifyOtpDesc extends StatelessWidget {
           ),
           // Force phone number to be LTR using Unicode embedding
           TextSpan(
-            text: "\u202A${formatPhoneNumber(phoneNumber)}\u202C\n",
+            text: "${formatPhoneNumber(phoneNumber)}\n",
             style: theme.textTheme.bodyMedium!.copyWith(
               color: theme.colorScheme.primary,
               fontWeight: FontWeight.w600,
