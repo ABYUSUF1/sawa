@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sawa/features/chats/presentation/views/chats_view.dart';
 import 'package:sawa/features/contacts/presentation/views/contacts_view.dart';
+import 'package:sawa/features/conversation/presentation/views/conversation_view.dart';
 import 'package:sawa/features/profile/presentation/views/profile_view.dart';
+import 'package:sawa/features/settings/presentation/view/account_view.dart';
 import 'package:sawa/features/settings/presentation/view/settings_view.dart';
 import 'package:sawa/features/splash/splash_view.dart';
 import 'package:sawa/features/statuses/presentation/views/statuses_view.dart';
@@ -112,7 +114,18 @@ final GoRouter appRouter = GoRouter(
           path: AppRoutePaths.profile,
           builder: (context, state) => const ProfileView(),
         ),
+        GoRoute(
+          name: AppRouteNames.account,
+          path: AppRoutePaths.account,
+          builder: (context, state) => const AccountView(),
+        ),
       ],
+    ),
+
+    GoRoute(
+      name: AppRouteNames.conversation,
+      path: AppRoutePaths.conversation,
+      builder: (context, state) => const ConversationView(),
     ),
   ],
 );

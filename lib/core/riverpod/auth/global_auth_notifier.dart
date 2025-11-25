@@ -16,17 +16,13 @@ class GlobalAuthNotifier extends AsyncNotifier<UserEntity?> {
   Future<UserEntity?> getCurrentUser() async {
     try {
       final userId = _repo.myUserId();
-
       if (userId == null || userId.isEmpty) {
         return null;
       }
-
       final currentUser = await _repo.getUser(userId);
-
       if (currentUser == null) {
         return null;
       }
-
       return currentUser;
     } catch (e) {
       return null;

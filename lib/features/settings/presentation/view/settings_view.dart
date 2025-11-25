@@ -49,7 +49,7 @@ class SettingsView extends StatelessWidget {
               title: const Text('Account'),
               subtitle: Text("Security, email"),
               onTap: () {
-                // Navigate to account settings
+                context.pushNamed(AppRouteNames.account);
               },
             ),
             ListTile(

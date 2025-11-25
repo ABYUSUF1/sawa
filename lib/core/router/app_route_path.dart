@@ -9,5 +9,7 @@ abstract final class AppRoutePaths {
   static const String contacts = '/contacts';
   static const String settings = '/settings';
   static const String appearance = '/appearance';
+  static const String account = '/account';
   static const String profile = '/profile';
+  static const String conversation = '/conversation';
 }

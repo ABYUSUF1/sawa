@@ -28,9 +28,9 @@ class ContactListItem extends StatelessWidget {
         style: const TextStyle(fontWeight: FontWeight.w500),
       ),
       subtitle: contact.isAppUser
-          ? contact.user!.isBioEmpty
+          ? (contact.user == null || contact.user!.isBioEmpty
                 ? null
-                : Text(contact.user!.bio!)
+                : Text(contact.user!.bio ?? ''))
           : Text(contact.phoneNumber),
       trailing: contact.isAppUser
           ? null

@@ -7,7 +7,7 @@ class CustomElevatedButton extends StatelessWidget {
   final bool showLoading;
   final String? loadingLabel;
   final bool fullWidth;
-  final Color? textColor;
+  final Color? color;
   final bool disabled;
   const CustomElevatedButton({
     super.key,
@@ -16,7 +16,7 @@ class CustomElevatedButton extends StatelessWidget {
     this.showLoading = false,
     this.loadingLabel,
     this.fullWidth = true,
-    this.textColor,
+    this.color,
     this.disabled = false,
   });
 
@@ -28,7 +28,8 @@ class CustomElevatedButton extends StatelessWidget {
       onPressed: disabled || showLoading ? null : onTap,
       style: ElevatedButton.styleFrom(
         elevation: 0,
-        backgroundColor: theme.colorScheme.primary,
+        backgroundColor:
+            color?.withValues(alpha: .2) ?? theme.colorScheme.primary,
         disabledBackgroundColor: theme.colorScheme.primary,
         minimumSize: fullWidth
             ? const Size(double.infinity, 50)
@@ -64,7 +65,7 @@ class CustomElevatedButton extends StatelessWidget {
           : Text(
               label,
               style: theme.textTheme.bodyMedium!.copyWith(
-                color: textColor ?? theme.colorScheme.onPrimary,
+                color: color ?? theme.colorScheme.onPrimary,
               ),
             ),
     );
