@@ -1,10 +1,12 @@
 import 'package:sawa/features/auth/data/model/user_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../../../../core/constants/supabase_tables.dart';
+
 class AuthRemoteDatasource {
   final SupabaseClient _supabase = Supabase.instance.client;
   User? get _currentUser => _supabase.auth.currentUser;
-  SupabaseQueryBuilder get _usersTable => _supabase.from('users');
+  SupabaseQueryBuilder get _usersTable => _supabase.from(SupabaseTables.users);
 
   /// Nullable userId
   String? get userId => _currentUser?.id;

@@ -4,6 +4,8 @@ import 'package:sawa/features/auth/data/model/user_model.dart';
 import 'package:sawa/features/contacts/data/models/contact_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../../../../core/constants/supabase_tables.dart';
+
 class ContactsRemoteDataSource {
   ContactsRemoteDataSource({required this.contactsService});
 
@@ -54,7 +56,7 @@ class ContactsRemoteDataSource {
       );
 
       final response = await supabase
-          .from('users')
+          .from(SupabaseTables.users)
           .select()
           .inFilter('phone_number', chunk);
 
@@ -113,7 +115,7 @@ class ContactsRemoteDataSource {
   }) async {
     // Query users table for this phone
     final row = await supabase
-        .from('users')
+        .from(SupabaseTables.users)
         .select()
         .eq('phone_number', phoneNumber)
         .maybeSingle();

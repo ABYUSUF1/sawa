@@ -1,0 +1,1 @@
+enum ChatRoomType { oneToOne, group }

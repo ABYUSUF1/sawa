@@ -10,17 +10,24 @@ class ConversationAppBar extends StatelessWidget
     final theme = Theme.of(context);
     return AppBar(
       backgroundColor: theme.colorScheme.surfaceContainerHigh,
+      leadingWidth: 28,
       title: ListTile(
         contentPadding: const EdgeInsets.all(0),
         leading: const CircleAvatar(
           child: Text('U1', style: TextStyle(color: Colors.white)),
-          radius: 24,
         ),
         title: Text(
           "Mahmoud Glal",
           style: TextStyle(fontWeight: FontWeight.w600),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
-        subtitle: const Text("Last seen 2 hours ago"),
+        subtitle: Text(
+          "9:35 PM",
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(color: theme.colorScheme.onSurface),
+        ),
       ),
       actions: [
         IconButton(onPressed: () {}, icon: const Icon(IconsaxPlusLinear.video)),

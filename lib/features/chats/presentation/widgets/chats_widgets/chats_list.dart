@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:sawa/core/router/app_route_name.dart';
 
 class ChatsList extends StatelessWidget {
   const ChatsList({super.key});
@@ -24,7 +26,7 @@ class ChatsList extends StatelessWidget {
           subtitle: const Text('Last message goes here...'),
           trailing: Text('10:3$index AM'),
           onTap: () {
-            // TODO: Navigate to ConversationView
+            context.pushNamed(AppRouteNames.conversation);
           },
         ),
         childCount: 20, // Example: 20 chats
