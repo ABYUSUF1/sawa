@@ -25,6 +25,9 @@ class ContactsLocalDataSource {
   /// Save or update a ContactObx list (bulk)
   void saveContacts(List<ContactObx> contacts) => _box.putMany(contacts);
 
+  /// Remove all contacts
+  void removeAllContacts() => _box.removeAll();
+
   /// Upsert a single Contact using a remote ContactModel.
   /// This preserves other local fields if the contact already exists
   /// and sets lastCheckedAt = now.

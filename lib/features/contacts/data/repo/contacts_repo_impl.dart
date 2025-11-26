@@ -33,6 +33,10 @@ class ContactsRepoImpl implements ContactsRepo {
       phoneNumbers,
     );
 
+    if (isRefresh && localContacts.isNotEmpty) {
+      _local.removeAllContacts();
+    }
+
     _local.saveContacts(contactsModels.map((model) => model.toObx()).toList());
 
     return contactsModels.map((model) => model.toEntity()).toList();
@@ -45,6 +49,7 @@ class ContactsRepoImpl implements ContactsRepo {
 
   /// Refreshes a single contact if needed (based on local lastCheckedAt).
   /// Returns the (possibly updated) ContactEntity.
+  @override
   Future<ContactEntity> refreshContactIfNeeded(ContactEntity contact) async {
     final localObx = _local.getContactByPhone(contact.phoneNumber);
 
