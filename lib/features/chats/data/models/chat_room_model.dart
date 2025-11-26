@@ -1,60 +1,76 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../../../core/utils/enums/chat_room_type.dart';
 import '../../../../core/utils/enums/message_type.dart';
+import '../../domain/entity/chat_room_entity.dart';
 
-class ChatRoomModel {
-  final String id;
-  final String name;
-  final String? description;
-  final String? imageUrl;
-  final ChatRoomType type;
+part 'chat_room_model.freezed.dart';
+part 'chat_room_model.g.dart';
 
-  // members
-  final List<String> memberIds;
-  final Map<String, String> memberNames;
-  final Map<String, String> memberAvatars; // userId -> avatarUrl
-  final List<String>? adminIds; // For group chats
+@freezed
+sealed class ChatRoomModel with _$ChatRoomModel {
+  const factory ChatRoomModel({
+    required String id,
+    required String name,
+    String? description,
+    String? imageUrl,
+    required ChatRoomType type,
 
-  // Last message info
-  final String? lastMessageId;
-  final String? lastMessagePreview;
-  final String? lastMessageSenderId;
-  final MessageType? lastMessageType;
-  final DateTime? lastMessageAt;
-  final int unreadCount;
+    // members
+    required List<String> memberIds,
+    @Default({}) Map<String, String> memberNames,
+    @Default({}) Map<String, String> memberAvatars,
+    List<String>? adminIds,
 
-  // Settings & Permissions
-  final bool isArchived;
-  final bool isMuted;
+    // Last message info
+    String? lastMessageId,
+    String? lastMessagePreview,
+    String? lastMessageSenderId,
+    MessageType? lastMessageType,
+    DateTime? lastMessageAt,
+    @Default(0) int unreadCount,
 
-  // Metadata
-  final String createdBy;
-  final DateTime createdAt;
-  final DateTime? updatedAt;
+    // Settings & Permissions
+    @Default(false) bool isArchived,
+    @Default(false) bool isMuted,
 
-  // For direct chats
-  final String? otherUserId;
+    // Metadata
+    required String createdBy,
+    required DateTime createdAt,
+    DateTime? updatedAt,
 
-  ChatRoomModel({
-    required this.id,
-    required this.name,
-    this.description,
-    required this.type,
-    required this.memberIds,
-    this.memberNames = const {},
-    this.memberAvatars = const {},
-    this.adminIds,
-    this.lastMessageId,
-    this.lastMessagePreview,
-    this.lastMessageSenderId,
-    this.lastMessageType,
-    this.lastMessageAt,
-    this.unreadCount = 0,
-    this.imageUrl,
-    this.isArchived = false,
-    this.isMuted = false,
-    required this.createdBy,
-    required this.createdAt,
-    this.updatedAt,
-    this.otherUserId,
-  });
+    // For direct chats
+    String? otherUserId,
+  }) = _ChatRoomModel;
+
+  factory ChatRoomModel.fromJson(Map<String, dynamic> json) =>
+      _$ChatRoomModelFromJson(json);
+}
+
+extension ChatRoomModelX on ChatRoomModel {
+  // Convert to Entity
+  ChatRoomEntity toEntity() {
+    return ChatRoomEntity(
+      id: id,
+      name: name,
+      description: description,
+      imageUrl: imageUrl,
+      type: type,
+      memberIds: memberIds,
+      memberNames: memberNames,
+      memberAvatars: memberAvatars,
+      adminIds: adminIds,
+      lastMessageId: lastMessageId,
+      lastMessagePreview: lastMessagePreview,
+      lastMessageSenderId: lastMessageSenderId,
+      lastMessageType: lastMessageType,
+      lastMessageAt: lastMessageAt,
+      unreadCount: unreadCount,
+      isArchived: isArchived,
+      isMuted: isMuted,
+      createdBy: createdBy,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+      otherUserId: otherUserId,
+    );
+  }
 }

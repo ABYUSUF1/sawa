@@ -1,43 +1,33 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../../../core/utils/enums/message_status.dart';
 import '../../../../core/utils/enums/message_type.dart';
 
-class MessageModel {
-  final String id;
-  final String chatId;
-  final String senderId;
-  final String? senderName; // Optional: for displaying sender's name
-  final String? replyToId;
+part 'message_model.freezed.dart';
+part 'message_model.g.dart';
 
-  // Support for different types, not just text
-  final String content;
-  final MessageType type;
-  final MessageStatus status;
+@freezed
+sealed class MessageModel with _$MessageModel {
+  const factory MessageModel({
+    required String id,
+    required String chatId,
+    required String senderId,
+    String? senderName,
 
-  // Metadata for things like file_size, image_width, or audio_duration
-  final Map<String, dynamic>? metadata;
+    String? replyToId,
+    required String content,
+    @Default(MessageType.text) MessageType type,
 
-  // List of user IDs who have read the message
-  final List<String> readBy;
+    Map<String, dynamic>? metadata,
+    @Default([]) List<String> readBy,
 
-  final bool isEdited;
-  final bool isDeleted;
-  final DateTime createdAt;
-  final DateTime? updatedAt;
+    @Default(MessageStatus.sending) MessageStatus status,
+    @Default(false) bool isEdited,
+    @Default(false) bool isDeleted,
 
-  MessageModel({
-    required this.id,
-    required this.chatId,
-    required this.senderId,
-    this.senderName,
-    required this.content,
-    this.type = MessageType.text,
-    this.metadata,
-    this.replyToId,
-    this.readBy = const [], // Default to empty
-    this.status = MessageStatus.sending,
-    this.isEdited = false,
-    this.isDeleted = false,
-    required this.createdAt,
-    this.updatedAt,
-  });
+    required DateTime createdAt,
+    DateTime? updatedAt,
+  }) = _MessageModel;
+
+  factory MessageModel.fromJson(Map<String, dynamic> json) =>
+      _$MessageModelFromJson(json);
 }
