@@ -24,59 +24,62 @@ class _ConversationTextFieldState extends State<ConversationTextField> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return SafeArea(
-      minimum: const EdgeInsets.only(bottom: 6),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-        decoration: BoxDecoration(
-          color: theme.colorScheme.surfaceContainerHigh,
-          border: Border(top: BorderSide(color: theme.dividerColor)),
-        ),
-        child: Row(
-          children: [
-            // EMOJI BUTTON
-            IconButton(
-              icon: const Icon(Icons.emoji_emotions_outlined),
-              onPressed: () {
-                debugPrint("Emoji Picker");
-              },
-            ),
+    return Container(
+      padding: const EdgeInsetsDirectional.only(end: 8),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surfaceContainerHigh,
+        border: Border(top: BorderSide(color: theme.dividerColor)),
+      ),
+      child: Row(
+        children: [
+          // EMOJI BUTTON
+          IconButton(
+            icon: const Icon(Icons.emoji_emotions_outlined),
+            onPressed: () {
+              debugPrint("Emoji Picker");
+            },
+          ),
 
-            // TEXT FIELD
-            Expanded(
-              child: TextField(
-                controller: _controller,
-                minLines: 1,
-                maxLines: 5,
-                onChanged: (text) =>
-                    setState(() => _canSend = text.trim().isNotEmpty),
-                decoration: InputDecoration(
-                  hintText: "Type a message...",
-                  border: OutlineInputBorder(borderSide: BorderSide.none),
+          // TEXT FIELD
+          Expanded(
+            child: TextField(
+              onTapOutside: (event) =>
+                  FocusManager.instance.primaryFocus?.unfocus(),
+              controller: _controller,
+              minLines: 1,
+              maxLines: 5,
+              onChanged: (text) =>
+                  setState(() => _canSend = text.trim().isNotEmpty),
+              decoration: const InputDecoration(
+                contentPadding: EdgeInsets.symmetric(
+                  vertical: 16,
+                  horizontal: 0,
                 ),
+                hintText: "Type a message...",
+                border: OutlineInputBorder(borderSide: BorderSide.none),
               ),
             ),
+          ),
 
-            // ATTACH BUTTON
-            IconButton(
-              icon: const Icon(Icons.attach_file),
-              onPressed: () {
-                debugPrint("Attach File");
-              },
-            ),
-            const SizedBox(width: 6),
+          // ATTACH BUTTON
+          IconButton(
+            icon: const Icon(Icons.attach_file),
+            onPressed: () {
+              debugPrint("Attach File");
+            },
+          ),
+          const SizedBox(width: 6),
 
-            // ===== Animated Send / Mic =====
-            AnimatedSwitcher(
-              duration: const Duration(milliseconds: 200),
-              transitionBuilder: (child, anim) =>
-                  ScaleTransition(scale: anim, child: child),
-              child: _canSend
-                  ? _buildSendButton(theme) // SEND BUTTON
-                  : _buildMicButton(theme), // MIC BUTTON
-            ),
-          ],
-        ),
+          // ===== Animated Send / Mic =====
+          AnimatedSwitcher(
+            duration: const Duration(milliseconds: 200),
+            transitionBuilder: (child, anim) =>
+                ScaleTransition(scale: anim, child: child),
+            child: _canSend
+                ? _buildSendButton(theme) // SEND BUTTON
+                : _buildMicButton(theme), // MIC BUTTON
+          ),
+        ],
       ),
     );
   }

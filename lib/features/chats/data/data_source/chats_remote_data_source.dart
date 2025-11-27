@@ -20,6 +20,22 @@ class ChatsRemoteDataSource {
     return supabase
         .from(SupabaseTables.chatRooms)
         .stream(primaryKey: ['id'])
+        .limit(50)
         .map((maps) => maps.map((map) => ChatRoomModel.fromJson(map)).toList());
+  }
+
+  Future<ChatRoomModel?> getDirectChatRoom({
+    required String otherUserId,
+  }) async {
+    final currentUserId = supabase.auth.currentUser?.id;
+    final response = await supabase
+        .from('chat_rooms')
+        .select()
+        .eq('type', 'direct')
+        .contains('member_ids', [currentUserId, otherUserId])
+        .limit(1)
+        .maybeSingle();
+
+    return response != null ? ChatRoomModel.fromJson(response) : null;
   }
 }

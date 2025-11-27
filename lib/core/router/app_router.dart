@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sawa/features/chats/presentation/views/chats_view.dart';
 import 'package:sawa/features/contacts/presentation/views/contacts_view.dart';
+import 'package:sawa/features/contacts/presentation/views/new_group_view.dart';
 import 'package:sawa/features/conversation/presentation/views/conversation_view.dart';
 import 'package:sawa/features/profile/presentation/views/profile_view.dart';
 import 'package:sawa/features/settings/presentation/view/account_view.dart';
@@ -13,6 +14,7 @@ import '../../features/auth/presentation/views/complete_your_profile_view.dart';
 import '../../features/auth/presentation/views/phone_login_view.dart';
 import '../../features/auth/presentation/views/verify_otp_view.dart';
 import '../../features/calls/presentation/views/calls_view.dart';
+import '../../features/conversation/presentation/args/conversation_args.dart';
 import '../../features/settings/presentation/view/appearance_view.dart';
 import '../layout/main_layout/main_layout.dart';
 import 'app_route_name.dart';
@@ -100,6 +102,12 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) => const ContactsView(),
     ),
     GoRoute(
+      name: AppRouteNames.newGroup,
+      path: AppRoutePaths.newGroup,
+      builder: (context, state) => const NewGroupView(),
+    ),
+
+    GoRoute(
       name: AppRouteNames.settings,
       path: AppRoutePaths.settings,
       builder: (context, state) => const SettingsView(),
@@ -125,7 +133,10 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       name: AppRouteNames.conversation,
       path: AppRoutePaths.conversation,
-      builder: (context, state) => const ConversationView(),
+      builder: (context, state) {
+        final conversationArgs = state.extra as ConversationArgs;
+        return ConversationView(conversationArgs: conversationArgs);
+      },
     ),
   ],
 );

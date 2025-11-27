@@ -122,11 +122,11 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  loading,TResult Function( List<ContactEntity> appUserContacts,  String searchQuery,  List<ContactEntity> filteredAppUsers,  List<ContactEntity> filteredNonAppUsers)?  success,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  loading,TResult Function( List<ContactEntity> appUserContacts,  String searchQuery,  List<ContactEntity> filteredAppUsers,  List<ContactEntity> filteredNonAppUsers,  List<ContactEntity> selectedContacts,  bool isSelectionMode)?  success,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Loading() when loading != null:
 return loading();case ContactsSuccess() when success != null:
-return success(_that.appUserContacts,_that.searchQuery,_that.filteredAppUsers,_that.filteredNonAppUsers);case _Error() when error != null:
+return success(_that.appUserContacts,_that.searchQuery,_that.filteredAppUsers,_that.filteredNonAppUsers,_that.selectedContacts,_that.isSelectionMode);case _Error() when error != null:
 return error(_that.message);case _:
   return orElse();
 
@@ -145,11 +145,11 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  loading,required TResult Function( List<ContactEntity> appUserContacts,  String searchQuery,  List<ContactEntity> filteredAppUsers,  List<ContactEntity> filteredNonAppUsers)  success,required TResult Function( String message)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  loading,required TResult Function( List<ContactEntity> appUserContacts,  String searchQuery,  List<ContactEntity> filteredAppUsers,  List<ContactEntity> filteredNonAppUsers,  List<ContactEntity> selectedContacts,  bool isSelectionMode)  success,required TResult Function( String message)  error,}) {final _that = this;
 switch (_that) {
 case _Loading():
 return loading();case ContactsSuccess():
-return success(_that.appUserContacts,_that.searchQuery,_that.filteredAppUsers,_that.filteredNonAppUsers);case _Error():
+return success(_that.appUserContacts,_that.searchQuery,_that.filteredAppUsers,_that.filteredNonAppUsers,_that.selectedContacts,_that.isSelectionMode);case _Error():
 return error(_that.message);}
 }
 /// A variant of `when` that fallback to returning `null`
@@ -164,11 +164,11 @@ return error(_that.message);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  loading,TResult? Function( List<ContactEntity> appUserContacts,  String searchQuery,  List<ContactEntity> filteredAppUsers,  List<ContactEntity> filteredNonAppUsers)?  success,TResult? Function( String message)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  loading,TResult? Function( List<ContactEntity> appUserContacts,  String searchQuery,  List<ContactEntity> filteredAppUsers,  List<ContactEntity> filteredNonAppUsers,  List<ContactEntity> selectedContacts,  bool isSelectionMode)?  success,TResult? Function( String message)?  error,}) {final _that = this;
 switch (_that) {
 case _Loading() when loading != null:
 return loading();case ContactsSuccess() when success != null:
-return success(_that.appUserContacts,_that.searchQuery,_that.filteredAppUsers,_that.filteredNonAppUsers);case _Error() when error != null:
+return success(_that.appUserContacts,_that.searchQuery,_that.filteredAppUsers,_that.filteredNonAppUsers,_that.selectedContacts,_that.isSelectionMode);case _Error() when error != null:
 return error(_that.message);case _:
   return null;
 
@@ -213,7 +213,7 @@ String toString() {
 
 
 class ContactsSuccess implements ContactsState {
-  const ContactsSuccess({required final  List<ContactEntity> appUserContacts, this.searchQuery = '', final  List<ContactEntity> filteredAppUsers = const [], final  List<ContactEntity> filteredNonAppUsers = const []}): _appUserContacts = appUserContacts,_filteredAppUsers = filteredAppUsers,_filteredNonAppUsers = filteredNonAppUsers;
+  const ContactsSuccess({required final  List<ContactEntity> appUserContacts, this.searchQuery = '', final  List<ContactEntity> filteredAppUsers = const [], final  List<ContactEntity> filteredNonAppUsers = const [], final  List<ContactEntity> selectedContacts = const [], this.isSelectionMode = false}): _appUserContacts = appUserContacts,_filteredAppUsers = filteredAppUsers,_filteredNonAppUsers = filteredNonAppUsers,_selectedContacts = selectedContacts;
   
 
  final  List<ContactEntity> _appUserContacts;
@@ -238,6 +238,14 @@ class ContactsSuccess implements ContactsState {
   return EqualUnmodifiableListView(_filteredNonAppUsers);
 }
 
+ final  List<ContactEntity> _selectedContacts;
+@JsonKey() List<ContactEntity> get selectedContacts {
+  if (_selectedContacts is EqualUnmodifiableListView) return _selectedContacts;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_selectedContacts);
+}
+
+@JsonKey() final  bool isSelectionMode;
 
 /// Create a copy of ContactsState
 /// with the given fields replaced by the non-null parameter values.
@@ -249,16 +257,16 @@ $ContactsSuccessCopyWith<ContactsSuccess> get copyWith => _$ContactsSuccessCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ContactsSuccess&&const DeepCollectionEquality().equals(other._appUserContacts, _appUserContacts)&&(identical(other.searchQuery, searchQuery) || other.searchQuery == searchQuery)&&const DeepCollectionEquality().equals(other._filteredAppUsers, _filteredAppUsers)&&const DeepCollectionEquality().equals(other._filteredNonAppUsers, _filteredNonAppUsers));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ContactsSuccess&&const DeepCollectionEquality().equals(other._appUserContacts, _appUserContacts)&&(identical(other.searchQuery, searchQuery) || other.searchQuery == searchQuery)&&const DeepCollectionEquality().equals(other._filteredAppUsers, _filteredAppUsers)&&const DeepCollectionEquality().equals(other._filteredNonAppUsers, _filteredNonAppUsers)&&const DeepCollectionEquality().equals(other._selectedContacts, _selectedContacts)&&(identical(other.isSelectionMode, isSelectionMode) || other.isSelectionMode == isSelectionMode));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_appUserContacts),searchQuery,const DeepCollectionEquality().hash(_filteredAppUsers),const DeepCollectionEquality().hash(_filteredNonAppUsers));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_appUserContacts),searchQuery,const DeepCollectionEquality().hash(_filteredAppUsers),const DeepCollectionEquality().hash(_filteredNonAppUsers),const DeepCollectionEquality().hash(_selectedContacts),isSelectionMode);
 
 @override
 String toString() {
-  return 'ContactsState.success(appUserContacts: $appUserContacts, searchQuery: $searchQuery, filteredAppUsers: $filteredAppUsers, filteredNonAppUsers: $filteredNonAppUsers)';
+  return 'ContactsState.success(appUserContacts: $appUserContacts, searchQuery: $searchQuery, filteredAppUsers: $filteredAppUsers, filteredNonAppUsers: $filteredNonAppUsers, selectedContacts: $selectedContacts, isSelectionMode: $isSelectionMode)';
 }
 
 
@@ -269,7 +277,7 @@ abstract mixin class $ContactsSuccessCopyWith<$Res> implements $ContactsStateCop
   factory $ContactsSuccessCopyWith(ContactsSuccess value, $Res Function(ContactsSuccess) _then) = _$ContactsSuccessCopyWithImpl;
 @useResult
 $Res call({
- List<ContactEntity> appUserContacts, String searchQuery, List<ContactEntity> filteredAppUsers, List<ContactEntity> filteredNonAppUsers
+ List<ContactEntity> appUserContacts, String searchQuery, List<ContactEntity> filteredAppUsers, List<ContactEntity> filteredNonAppUsers, List<ContactEntity> selectedContacts, bool isSelectionMode
 });
 
 
@@ -286,13 +294,15 @@ class _$ContactsSuccessCopyWithImpl<$Res>
 
 /// Create a copy of ContactsState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? appUserContacts = null,Object? searchQuery = null,Object? filteredAppUsers = null,Object? filteredNonAppUsers = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? appUserContacts = null,Object? searchQuery = null,Object? filteredAppUsers = null,Object? filteredNonAppUsers = null,Object? selectedContacts = null,Object? isSelectionMode = null,}) {
   return _then(ContactsSuccess(
 appUserContacts: null == appUserContacts ? _self._appUserContacts : appUserContacts // ignore: cast_nullable_to_non_nullable
 as List<ContactEntity>,searchQuery: null == searchQuery ? _self.searchQuery : searchQuery // ignore: cast_nullable_to_non_nullable
 as String,filteredAppUsers: null == filteredAppUsers ? _self._filteredAppUsers : filteredAppUsers // ignore: cast_nullable_to_non_nullable
 as List<ContactEntity>,filteredNonAppUsers: null == filteredNonAppUsers ? _self._filteredNonAppUsers : filteredNonAppUsers // ignore: cast_nullable_to_non_nullable
-as List<ContactEntity>,
+as List<ContactEntity>,selectedContacts: null == selectedContacts ? _self._selectedContacts : selectedContacts // ignore: cast_nullable_to_non_nullable
+as List<ContactEntity>,isSelectionMode: null == isSelectionMode ? _self.isSelectionMode : isSelectionMode // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 

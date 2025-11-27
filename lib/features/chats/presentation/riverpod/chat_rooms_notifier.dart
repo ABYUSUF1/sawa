@@ -21,4 +21,11 @@ class ChatRoomsNotifier extends AsyncNotifier<List<ChatRoomEntity>?> {
     // return null → means “still loading”
     return null;
   }
+
+  Future<ChatRoomEntity?> getDirectChatRoom({
+    required String otherUserId,
+  }) async {
+    final repo = ref.read(chatRoomsRepoProvider);
+    return await repo.getDirectChatRoom(otherUserId: otherUserId);
+  }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
+import 'package:sawa/core/router/app_route_name.dart';
 
 class ContactsTopOptionsSection extends StatelessWidget {
   const ContactsTopOptionsSection({super.key});
@@ -9,7 +11,13 @@ class ContactsTopOptionsSection extends StatelessWidget {
     final theme = Theme.of(context);
 
     final List<Map<String, dynamic>> moreSections = [
-      {"title": "New Group", "icon": Icons.group_add, "onTap": () {}},
+      {
+        "title": "New Group",
+        "icon": Icons.group_add,
+        "onTap": () {
+          context.pushNamed(AppRouteNames.newGroup);
+        },
+      },
       {
         "title": "New Contact",
         "icon": IconsaxPlusBold.user_add,

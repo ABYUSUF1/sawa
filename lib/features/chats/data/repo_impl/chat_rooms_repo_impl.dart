@@ -21,4 +21,13 @@ class ChatRoomsRepoImpl implements ChatRoomsRepo {
           chatRoomModels?.map((model) => model.toEntity()).toList(),
     );
   }
+
+  @override
+  Future<ChatRoomEntity?> getDirectChatRoom({
+    required String otherUserId,
+  }) async {
+    return await remoteDataSource
+        .getDirectChatRoom(otherUserId: otherUserId)
+        .then((model) => model?.toEntity());
+  }
 }

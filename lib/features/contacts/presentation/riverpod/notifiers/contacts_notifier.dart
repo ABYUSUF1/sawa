@@ -12,6 +12,31 @@ class ContactsNotifier extends StateNotifier<ContactsState> {
   final ContactsRepo contactsRepo;
   List<ContactEntity> _allContacts = [];
 
+  // Use phone numbers as unique ids for selection
+  final Set<String> _selectedPhones = {};
+
+  // -------------------------
+  // Helpers
+  // -------------------------
+  List<ContactEntity> _selectedContactsFromCache() {
+    if (_selectedPhones.isEmpty) return [];
+    return _allContacts
+        .where((c) => _selectedPhones.contains(c.phoneNumber))
+        .toList();
+  }
+
+  void _emitSelectionState({required bool isSelectionMode}) {
+    if (state is! ContactsSuccess) return;
+    final cur = state as ContactsSuccess;
+    state = cur.copyWith(
+      selectedContacts: _selectedContactsFromCache(),
+      isSelectionMode: isSelectionMode,
+    );
+  }
+
+  // -------------------------
+  // Core API
+  // -------------------------
   Future<void> fetchContacts({bool? isRefresh}) async {
     state = const ContactsState.loading();
 
@@ -21,24 +46,30 @@ class ContactsNotifier extends StateNotifier<ContactsState> {
           .getContactsWithAppUserStatus(wholeContacts, isRefresh ?? false);
 
       _allContacts = appUserContacts;
+
+      // clear selection when reloading
+      _selectedPhones.clear();
+
       state = ContactsState.success(
         appUserContacts: appUserContacts,
         searchQuery: '',
+        filteredAppUsers: [],
+        filteredNonAppUsers: [],
+        selectedContacts: [],
+        isSelectionMode: false,
       );
     } catch (e) {
       final failure = getFriendlyFailure(e);
-
       state = ContactsState.error(failure.errMessage);
     }
   }
 
   void searchContacts(String query) {
     if (state is! ContactsSuccess) return;
-
-    final currentState = state as ContactsSuccess;
+    final cur = state as ContactsSuccess;
 
     if (query.isEmpty) {
-      state = currentState.copyWith(
+      state = cur.copyWith(
         searchQuery: '',
         filteredAppUsers: [],
         filteredNonAppUsers: [],
@@ -58,7 +89,7 @@ class ContactsNotifier extends StateNotifier<ContactsState> {
         .where((c) => !c.isAppUser)
         .toList();
 
-    state = currentState.copyWith(
+    state = cur.copyWith(
       searchQuery: query,
       filteredAppUsers: filteredAppUsers,
       filteredNonAppUsers: filteredNonAppUsers,
@@ -66,25 +97,21 @@ class ContactsNotifier extends StateNotifier<ContactsState> {
   }
 
   void clearSearch() {
-    if (state is ContactsSuccess) {
-      final currentState = state as ContactsSuccess;
-      state = currentState.copyWith(
-        searchQuery: '',
-        filteredAppUsers: [],
-        filteredNonAppUsers: [],
-      );
-    }
+    if (state is! ContactsSuccess) return;
+    final cur = state as ContactsSuccess;
+    state = cur.copyWith(
+      searchQuery: '',
+      filteredAppUsers: [],
+      filteredNonAppUsers: [],
+    );
   }
 
-  /// Called when user taps a contact in search/list.
-  /// Performs the TTL check + remote refresh if needed, then returns the final ContactEntity.
+  /// Called when user taps a contact in the normal list (not selection).
   Future<ContactEntity?> onContactTap(ContactEntity contact) async {
     try {
-      // Optionally set a UI state to indicate checking status (omitted for brevity)
-
       final refreshed = await contactsRepo.refreshContactIfNeeded(contact);
 
-      // Update cached list in notifier if needed
+      // Update cached list if present
       final idx = _allContacts.indexWhere(
         (c) => c.phoneNumber == refreshed.phoneNumber,
       );
@@ -92,14 +119,78 @@ class ContactsNotifier extends StateNotifier<ContactsState> {
         _allContacts[idx] = refreshed;
         if (state is ContactsSuccess) {
           final cur = state as ContactsSuccess;
-          state = cur.copyWith(appUserContacts: _allContacts); // update UI list
+          state = cur.copyWith(appUserContacts: _allContacts);
         }
       }
 
       return refreshed;
     } catch (e) {
-      // handle errors (optional)
       return contact;
     }
   }
+
+  // -------------------------
+  // Selection API (simplified)
+  // -------------------------
+
+  /// Enter selection mode with no selections (used by NewGroupView).
+  void enableSelectionMode() {
+    _selectedPhones.clear();
+    _emitSelectionState(isSelectionMode: true);
+  }
+
+  /// Enter selection mode and select the supplied contact
+  /// (keeps compatibility with earlier UI calls that used enterSelectionMode).
+  void enterSelectionMode(ContactEntity contact) {
+    _selectedPhones.clear();
+    _selectedPhones.add(contact.phoneNumber);
+    _emitSelectionState(isSelectionMode: true);
+  }
+
+  /// Toggle the selection of [contact].
+  /// If we are not in selection mode, we automatically enter it and select the item.
+  void toggleContactSelection(ContactEntity contact) {
+    // ensure we only operate in success state
+    if (state is! ContactsSuccess) return;
+
+    final cur = state as ContactsSuccess;
+
+    // If not in selection mode, start it and select the contact
+    if (!cur.isSelectionMode) {
+      _selectedPhones.clear();
+      _selectedPhones.add(contact.phoneNumber);
+      _emitSelectionState(isSelectionMode: true);
+      return;
+    }
+
+    // Already in selection mode: toggle membership
+    if (_selectedPhones.contains(contact.phoneNumber)) {
+      _selectedPhones.remove(contact.phoneNumber);
+    } else {
+      _selectedPhones.add(contact.phoneNumber);
+    }
+
+    // If nothing selected, exit selection mode automatically
+    final stillHasSelection = _selectedPhones.isNotEmpty;
+    _emitSelectionState(isSelectionMode: stillHasSelection);
+  }
+
+  /// Exit selection mode and clear selections.
+  void exitSelectionMode() {
+    if (state is! ContactsSuccess) return;
+    _selectedPhones.clear();
+    _emitSelectionState(isSelectionMode: false);
+  }
+
+  void clearSelection() => exitSelectionMode();
+
+  // -------------------------
+  // Utilities exposed for convenience
+  // -------------------------
+
+  /// Returns a copy of currently selected contacts (read-only).
+  List<ContactEntity> get selectedContacts =>
+      List.unmodifiable(_selectedContactsFromCache());
+
+  int get selectedCount => _selectedPhones.length;
 }

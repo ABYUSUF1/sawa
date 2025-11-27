@@ -1,1 +1,1 @@
-enum ChatRoomType { oneToOne, group }
+enum ChatRoomType { direct, group }

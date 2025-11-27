@@ -76,7 +76,7 @@ Map<String, dynamic> _$ChatRoomModelToJson(_ChatRoomModel instance) =>
     };
 
 const _$ChatRoomTypeEnumMap = {
-  ChatRoomType.oneToOne: 'oneToOne',
+  ChatRoomType.direct: 'direct',
   ChatRoomType.group: 'group',
 };
 
